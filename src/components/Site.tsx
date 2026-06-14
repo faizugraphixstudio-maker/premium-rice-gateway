@@ -141,7 +141,7 @@ function Header() {
   return (
     <header className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ${scrolled ? "bg-white/95 backdrop-blur-md shadow-sm py-3" : "bg-transparent py-5"}`}>
       <div className="mx-auto max-w-7xl px-6 grid grid-cols-[auto_1fr_auto] items-center gap-6">
-        <Logo light={!scrolled} />
+        <Logo />
         <nav className="hidden lg:flex items-center justify-center gap-8">
           {NAV_MAIN.map((item) => (
             <a key={item.label} href={item.href} className={`text-sm font-medium tracking-wide transition-colors hover:text-gold ${scrolled ? "text-foreground" : "text-white"}`}>{item.label}</a>
