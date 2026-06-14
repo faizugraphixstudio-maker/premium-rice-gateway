@@ -196,7 +196,7 @@ function Hero() {
           </div>
           <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-medium text-white leading-[1.05] tracking-tight">
             Premium Pakistani Rice<br />
-            <span className="gold-text italic">Exported Worldwide</span>
+            <span className="gold-text italic">{"\n"}</span>
           </h1>
           <p className="mt-8 max-w-2xl text-lg md:text-xl text-white/80 leading-relaxed font-light">
             Delivering exceptional quality, purity, and consistency to international markets across six continents.
@@ -626,7 +626,7 @@ function Footer() {
                 { Icon: Instagram, href: "#" },
                 { Icon: Facebook, href: "#" },
                 { Icon: Linkedin, href: "#" },
-                { Icon: Mail, href: "mailto:export@auragrain.com" },
+                { Icon: Mail, href: "mailto:export@utsrice.com" },
               ].map(({ Icon, href }, i) => (
                 <a key={i} href={href} className="h-10 w-10 grid place-items-center border border-white/20 rounded-sm hover:bg-gold hover:text-black hover:border-gold transition-colors">
                   <Icon className="h-4 w-4" />
@@ -636,7 +636,7 @@ function Footer() {
           </div>
         </div>
         <div className="pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-white/40">
-          <div>© 2026 Auragrain Rice Exporters. All Rights Reserved.</div>
+          <div>© 2026 UTS Rice Co. Rice Exporters. All Rights Reserved.</div>
           <div className="flex gap-6">
             <a href="#" className="hover:text-gold">Privacy Policy</a>
             <a href="#" className="hover:text-gold">Terms of Trade</a>
