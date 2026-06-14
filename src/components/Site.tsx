@@ -588,7 +588,7 @@ function Footer() {
       <div className="mx-auto max-w-7xl px-6">
         <div className="grid lg:grid-cols-12 gap-12 pb-16 border-b border-white/10">
           <div className="lg:col-span-4">
-            <Logo light />
+            <Logo />
             <p className="mt-5 text-sm text-white/60 leading-relaxed max-w-sm">Premium Pakistani rice exported to over 60 countries. A heritage of quality, trusted by global importers since 1999.</p>
             <div className="mt-6 space-y-2 text-sm text-white/70">
               <div className="flex items-start gap-2"><MapPin className="h-4 w-4 text-gold shrink-0 mt-0.5" /> Trade Tower, Shahrah-e-Faisal, Karachi 74400</div>
