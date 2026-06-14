@@ -192,7 +192,7 @@ function Hero() {
         <div className="lg:col-span-8 animate-fade-up">
           <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 backdrop-blur px-4 py-1.5 mb-8">
             <span className="h-1.5 w-1.5 rounded-full bg-gold" />
-            <span className="text-xs font-medium uppercase tracking-[0.2em] text-white">Exporting Excellence Since 1999</span>
+            <span className="text-xs font-medium uppercase tracking-[0.2em] text-white">EXPORTING EXCELLENCE SINCE 2010</span>
           </div>
           <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-medium text-white leading-[1.05] tracking-tight">
             Premium Pakistani Rice<br />
