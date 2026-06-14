@@ -74,8 +74,8 @@ const REGIONS = [
 ];
 
 const TESTIMONIALS = [
-  { quote: "Auragrain has been our most consistent Basmati supplier for the past seven years. Every shipment arrives on schedule and exceeds spec.", name: "Khalid Al-Rashid", role: "Procurement Director", company: "Gulf Foods Trading, Dubai" },
-  { quote: "The quality of their 1121 Basmati is exceptional. Our retail partners across Europe trust the brand we built around Auragrain rice.", name: "Sophie Laurent", role: "Managing Director", company: "Maison Riziere, Paris" },
+  { quote: "UTS Rice Co. has been our most consistent Basmati supplier for the past seven years. Every shipment arrives on schedule and exceeds spec.", name: "Khalid Al-Rashid", role: "Procurement Director", company: "Gulf Foods Trading, Dubai" },
+  { quote: "The quality of their 1121 Basmati is exceptional. Our retail partners across Europe trust the brand we built around UTS Rice Co. rice.", name: "Sophie Laurent", role: "Managing Director", company: "Maison Riziere, Paris" },
   { quote: "Documentation, certifications, packaging — everything is handled with the professionalism of a Fortune 500 operation.", name: "James Okonkwo", role: "Head of Imports", company: "WestAfrica Foods Ltd, Lagos" },
 ];
 
@@ -256,12 +256,12 @@ function About() {
           </div>
         </div>
         <div>
-          <SectionLabel>About Auragrain</SectionLabel>
+          <SectionLabel>About UTS Rice Co.</SectionLabel>
           <h2 className="font-display text-4xl md:text-5xl font-medium leading-tight">
             A heritage of rice <span className="italic gold-text">excellence</span>, exported with integrity.
           </h2>
           <p className="mt-6 text-muted-foreground text-lg leading-relaxed">
-            For over two decades, Auragrain has stood at the forefront of Pakistani rice export — bridging the fertile fields of Punjab and Sindh with discerning buyers in more than sixty countries. We don't just trade rice; we steward a craft.
+            For over two decades, UTS Rice Co. has stood at the forefront of Pakistani rice export — bridging the fertile fields of Punjab and Sindh with discerning buyers in more than sixty countries. We don't just trade rice; we steward a craft.
           </p>
           <div className="mt-8 grid sm:grid-cols-2 gap-x-6 gap-y-4">
             {[
