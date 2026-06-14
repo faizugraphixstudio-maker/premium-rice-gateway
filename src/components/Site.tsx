@@ -16,6 +16,7 @@ import pBasmati from "@/assets/product-basmati.jpg";
 import pWhite from "@/assets/product-white.jpg";
 import pBrown from "@/assets/product-brown.jpg";
 import pSella from "@/assets/product-sella.jpg";
+import logoAsset from "@/assets/logo.png.asset.json";
 
 const NAV_MAIN = [
   { label: "Home", href: "#home" },
