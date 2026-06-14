@@ -1,29 +1,14 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Site } from "@/components/Site";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Your App" },
-      { name: "description", content: "Replace this with a one-sentence description of your app." },
-      { property: "og:title", content: "Your App" },
-      { property: "og:description", content: "Replace this with a one-sentence description of your app." },
+      { title: "Auragrain — Premium Pakistani Rice Exported Worldwide" },
+      { name: "description", content: "Auragrain exports premium Pakistani Basmati and specialty rice to over 60 countries. Trusted by importers, distributors, wholesalers, and food companies worldwide." },
+      { property: "og:title", content: "Auragrain — Premium Pakistani Rice Exported Worldwide" },
+      { property: "og:description", content: "Premium Basmati and specialty rice delivered with uncompromising quality to international markets." },
     ],
   }),
-  component: Index,
+  component: Site,
 });
-
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
-function Index() {
-  return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
-  );
-}
