@@ -119,14 +119,10 @@ export function Site() {
   );
 }
 
-function Logo({ light = false }: { light?: boolean }) {
+function Logo() {
   return (
-    <Link to="/" className="flex items-center gap-2 group">
-      <span className="grid h-10 w-10 place-items-center rounded-sm bg-gradient-to-br from-[oklch(0.82_0.14_85)] to-[oklch(0.55_0.13_60)] text-black font-display text-xl font-bold shadow-md">A</span>
-      <span className="flex flex-col leading-none">
-        <span className={`font-display text-xl font-semibold tracking-tight ${light ? "text-white" : "text-foreground"}`}>Auragrain</span>
-        <span className={`text-[10px] uppercase tracking-[0.25em] ${light ? "text-white/60" : "text-muted-foreground"}`}>Rice Exporters</span>
-      </span>
+    <Link to="/" className="flex items-center group">
+      <img src={logoAsset.url} alt="UTS Millers Suppliers & Exporters" className="h-12 w-auto object-contain" />
     </Link>
   );
 }
