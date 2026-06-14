@@ -16,6 +16,7 @@ import pBasmati from "@/assets/product-basmati.jpg";
 import pWhite from "@/assets/product-white.jpg";
 import pBrown from "@/assets/product-brown.jpg";
 import pSella from "@/assets/product-sella.jpg";
+import logoAsset from "@/assets/logo.png.asset.json";
 
 const NAV_MAIN = [
   { label: "Home", href: "#home" },
@@ -118,14 +119,10 @@ export function Site() {
   );
 }
 
-function Logo({ light = false }: { light?: boolean }) {
+function Logo() {
   return (
-    <Link to="/" className="flex items-center gap-2 group">
-      <span className="grid h-10 w-10 place-items-center rounded-sm bg-gradient-to-br from-[oklch(0.82_0.14_85)] to-[oklch(0.55_0.13_60)] text-black font-display text-xl font-bold shadow-md">A</span>
-      <span className="flex flex-col leading-none">
-        <span className={`font-display text-xl font-semibold tracking-tight ${light ? "text-white" : "text-foreground"}`}>Auragrain</span>
-        <span className={`text-[10px] uppercase tracking-[0.25em] ${light ? "text-white/60" : "text-muted-foreground"}`}>Rice Exporters</span>
-      </span>
+    <Link to="/" className="flex items-center group">
+      <img src={logoAsset.url} alt="UTS Millers Suppliers & Exporters" className="h-12 w-auto object-contain" />
     </Link>
   );
 }
@@ -144,7 +141,7 @@ function Header() {
   return (
     <header className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ${scrolled ? "bg-white/95 backdrop-blur-md shadow-sm py-3" : "bg-transparent py-5"}`}>
       <div className="mx-auto max-w-7xl px-6 grid grid-cols-[auto_1fr_auto] items-center gap-6">
-        <Logo light={!scrolled} />
+        <Logo />
         <nav className="hidden lg:flex items-center justify-center gap-8">
           {NAV_MAIN.map((item) => (
             <a key={item.label} href={item.href} className={`text-sm font-medium tracking-wide transition-colors hover:text-gold ${scrolled ? "text-foreground" : "text-white"}`}>{item.label}</a>
@@ -591,7 +588,7 @@ function Footer() {
       <div className="mx-auto max-w-7xl px-6">
         <div className="grid lg:grid-cols-12 gap-12 pb-16 border-b border-white/10">
           <div className="lg:col-span-4">
-            <Logo light />
+            <Logo />
             <p className="mt-5 text-sm text-white/60 leading-relaxed max-w-sm">Premium Pakistani rice exported to over 60 countries. A heritage of quality, trusted by global importers since 1999.</p>
             <div className="mt-6 space-y-2 text-sm text-white/70">
               <div className="flex items-start gap-2"><MapPin className="h-4 w-4 text-gold shrink-0 mt-0.5" /> Trade Tower, Shahrah-e-Faisal, Karachi 74400</div>
