@@ -594,7 +594,7 @@ function Footer() {
               <div className="flex items-start gap-2"><MapPin className="h-4 w-4 text-gold shrink-0 mt-0.5" /> Trade Tower, Shahrah-e-Faisal, Karachi 74400</div>
               <div className="flex items-center gap-2"><Phone className="h-4 w-4 text-gold" /> +92 21 3456 7890</div>
               <div className="flex items-center gap-2"><MessageCircle className="h-4 w-4 text-gold" /> +92 300 1234567</div>
-              <div className="flex items-center gap-2"><Mail className="h-4 w-4 text-gold" /> export@auragrain.com</div>
+              <div className="flex items-center gap-2"><Mail className="h-4 w-4 text-gold" /> export@utsrice.com</div>
               <div className="flex items-center gap-2"><Clock className="h-4 w-4 text-gold" /> Mon – Sat, 9 AM – 6 PM PKT</div>
             </div>
           </div>
