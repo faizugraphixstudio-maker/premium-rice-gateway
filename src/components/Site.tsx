@@ -74,8 +74,8 @@ const REGIONS = [
 ];
 
 const TESTIMONIALS = [
-  { quote: "Auragrain has been our most consistent Basmati supplier for the past seven years. Every shipment arrives on schedule and exceeds spec.", name: "Khalid Al-Rashid", role: "Procurement Director", company: "Gulf Foods Trading, Dubai" },
-  { quote: "The quality of their 1121 Basmati is exceptional. Our retail partners across Europe trust the brand we built around Auragrain rice.", name: "Sophie Laurent", role: "Managing Director", company: "Maison Riziere, Paris" },
+  { quote: "UTS Rice Co. has been our most consistent Basmati supplier for the past seven years. Every shipment arrives on schedule and exceeds spec.", name: "Khalid Al-Rashid", role: "Procurement Director", company: "Gulf Foods Trading, Dubai" },
+  { quote: "The quality of their 1121 Basmati is exceptional. Our retail partners across Europe trust the brand we built around UTS Rice Co. rice.", name: "Sophie Laurent", role: "Managing Director", company: "Maison Riziere, Paris" },
   { quote: "Documentation, certifications, packaging — everything is handled with the professionalism of a Fortune 500 operation.", name: "James Okonkwo", role: "Head of Imports", company: "WestAfrica Foods Ltd, Lagos" },
 ];
 
@@ -196,7 +196,7 @@ function Hero() {
           </div>
           <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-medium text-white leading-[1.05] tracking-tight">
             Premium Pakistani Rice<br />
-            <span className="gold-text italic">Exported Worldwide</span>
+            <span className="gold-text italic">{"\n"}</span>
           </h1>
           <p className="mt-8 max-w-2xl text-lg md:text-xl text-white/80 leading-relaxed font-light">
             Delivering exceptional quality, purity, and consistency to international markets across six continents.
@@ -256,12 +256,12 @@ function About() {
           </div>
         </div>
         <div>
-          <SectionLabel>About Auragrain</SectionLabel>
+          <SectionLabel>About UTS Rice Co.</SectionLabel>
           <h2 className="font-display text-4xl md:text-5xl font-medium leading-tight">
             A heritage of rice <span className="italic gold-text">excellence</span>, exported with integrity.
           </h2>
           <p className="mt-6 text-muted-foreground text-lg leading-relaxed">
-            For over two decades, Auragrain has stood at the forefront of Pakistani rice export — bridging the fertile fields of Punjab and Sindh with discerning buyers in more than sixty countries. We don't just trade rice; we steward a craft.
+            For over two decades, UTS Rice Co. has stood at the forefront of Pakistani rice export — bridging the fertile fields of Punjab and Sindh with discerning buyers in more than sixty countries. We don't just trade rice; we steward a craft.
           </p>
           <div className="mt-8 grid sm:grid-cols-2 gap-x-6 gap-y-4">
             {[
@@ -594,7 +594,7 @@ function Footer() {
               <div className="flex items-start gap-2"><MapPin className="h-4 w-4 text-gold shrink-0 mt-0.5" /> Trade Tower, Shahrah-e-Faisal, Karachi 74400</div>
               <div className="flex items-center gap-2"><Phone className="h-4 w-4 text-gold" /> +92 21 3456 7890</div>
               <div className="flex items-center gap-2"><MessageCircle className="h-4 w-4 text-gold" /> +92 300 1234567</div>
-              <div className="flex items-center gap-2"><Mail className="h-4 w-4 text-gold" /> export@auragrain.com</div>
+              <div className="flex items-center gap-2"><Mail className="h-4 w-4 text-gold" /> export@utsrice.com</div>
               <div className="flex items-center gap-2"><Clock className="h-4 w-4 text-gold" /> Mon – Sat, 9 AM – 6 PM PKT</div>
             </div>
           </div>
@@ -626,7 +626,7 @@ function Footer() {
                 { Icon: Instagram, href: "#" },
                 { Icon: Facebook, href: "#" },
                 { Icon: Linkedin, href: "#" },
-                { Icon: Mail, href: "mailto:export@auragrain.com" },
+                { Icon: Mail, href: "mailto:export@utsrice.com" },
               ].map(({ Icon, href }, i) => (
                 <a key={i} href={href} className="h-10 w-10 grid place-items-center border border-white/20 rounded-sm hover:bg-gold hover:text-black hover:border-gold transition-colors">
                   <Icon className="h-4 w-4" />
@@ -636,7 +636,7 @@ function Footer() {
           </div>
         </div>
         <div className="pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-white/40">
-          <div>© 2026 Auragrain Rice Exporters. All Rights Reserved.</div>
+          <div>© 2026 UTS Rice Co. Rice Exporters. All Rights Reserved.</div>
           <div className="flex gap-6">
             <a href="#" className="hover:text-gold">Privacy Policy</a>
             <a href="#" className="hover:text-gold">Terms of Trade</a>
