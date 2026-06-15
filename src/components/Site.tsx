@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import {
-  Menu, X, ChevronDown, ArrowRight, Award, Globe, Truck, BadgeCheck,
+  Menu, X, ChevronDown, ArrowRight, ArrowLeft, Award, Globe, Truck, BadgeCheck,
   ShieldCheck, Package, Headphones, Wheat, Leaf, Factory, FlaskConical,
   Boxes, MapPin, Phone, Mail, Clock, Instagram, Facebook, Linkedin,
   ArrowUp, MessageCircle, Star, Quote, Plus, Minus, Send,
