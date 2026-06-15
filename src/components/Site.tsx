@@ -94,11 +94,10 @@ export function Site() {
       <Hero />
       <Stats />
       <About />
-      <Products />
       <WhyUs />
       <Quality />
       <Certifications />
-      <ExportNetwork />
+      <Products />
       <Gallery />
       <Testimonials />
       <Faq />
@@ -108,6 +107,7 @@ export function Site() {
     </div>
   );
 }
+
 
 function Logo() {
   return (
