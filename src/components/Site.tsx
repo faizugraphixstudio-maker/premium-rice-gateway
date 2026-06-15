@@ -35,18 +35,8 @@ const NAV_MORE = [
   { label: "News & Updates", href: "#news" },
 ];
 
-const PRODUCTS = [
-  { name: "Super Basmati Rice", desc: "Long, slender grains with an unmistakable aroma — the crown jewel of Pakistani Basmati.", img: pBasmati },
-  { name: "1121 Basmati Rice", desc: "Extra-long grain Basmati prized for length, elongation, and exceptional fluffiness.", img: grainsImg },
-  { name: "1509 Basmati Rice", desc: "Premium Basmati with quick cooking time and pristine white finish.", img: pWhite },
-  { name: "PK-386 Rice", desc: "Long grain non-Basmati known for clean appearance and consistent quality.", img: pBasmati },
-  { name: "IRRI-6 Rice", desc: "Versatile medium grain rice ideal for foodservice and industrial applications.", img: pWhite },
-  { name: "Brown Rice", desc: "Whole-grain rice retaining bran and germ — naturally rich in fiber and minerals.", img: pBrown },
-  { name: "Steam Rice", desc: "Steam-treated Basmati preserving nutrients with improved cooking performance.", img: pSella },
-  { name: "Sella Rice", desc: "Parboiled rice with a golden hue, firm texture, and non-sticky cooked grains.", img: pSella },
-  { name: "Long Grain Rice", desc: "Slender, elongated grains that cook light, dry, and separate.", img: grainsImg },
-  { name: "White Rice", desc: "Polished, milled white rice in multiple grades for global distribution.", img: pWhite },
-];
+import { PRODUCTS } from "@/data/products";
+
 
 const FEATURES = [
   { icon: Award, title: "Premium Quality", desc: "Hand-selected grains meeting the highest international standards." },
@@ -300,20 +290,26 @@ function Products() {
         </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
           {PRODUCTS.map((p) => (
-            <article key={p.name} className="group bg-white rounded-sm overflow-hidden hover-lift border border-border">
+            <Link
+              key={p.slug}
+              to="/products/$slug"
+              params={{ slug: p.slug }}
+              className="group bg-white rounded-sm overflow-hidden hover-lift border border-border block"
+            >
               <div className="aspect-square overflow-hidden bg-black">
                 <img src={p.img} alt={p.name} loading="lazy" width={800} height={800} className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
               </div>
               <div className="p-5">
                 <h3 className="font-display text-lg font-medium leading-tight">{p.name}</h3>
                 <p className="mt-2 text-xs text-muted-foreground line-clamp-3 leading-relaxed">{p.desc}</p>
-                <a href="#contact" className="mt-4 inline-flex items-center gap-1.5 text-xs font-medium text-foreground hover:text-gold transition-colors">
+                <span className="mt-4 inline-flex items-center gap-1.5 text-xs font-medium text-foreground group-hover:text-gold transition-colors">
                   View Details <ArrowRight className="h-3 w-3" />
-                </a>
+                </span>
               </div>
-            </article>
+            </Link>
           ))}
         </div>
+
       </div>
     </section>
   );
