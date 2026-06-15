@@ -139,15 +139,15 @@ function Header() {
   }, []);
 
   return (
-    <header className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ${scrolled ? "bg-white/95 backdrop-blur-md shadow-sm py-3" : "bg-transparent py-5"}`}>
+    <header className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ${scrolled ? "bg-black/90 backdrop-blur-md shadow-sm py-3" : "bg-transparent py-5"}`}>
       <div className="mx-auto max-w-7xl px-6 grid grid-cols-[auto_1fr_auto] items-center gap-6">
         <Logo />
         <nav className="hidden lg:flex items-center justify-center gap-8">
           {NAV_MAIN.map((item) => (
-            <a key={item.label} href={item.href} className={`text-sm font-medium tracking-wide transition-colors hover:text-gold ${scrolled ? "text-foreground" : "text-white"}`}>{item.label}</a>
+            <a key={item.label} href={item.href} className={`text-sm font-medium tracking-wide transition-colors hover:text-gold ${scrolled ? "text-white" : "text-white"}`}>{item.label}</a>
           ))}
           <div className="relative" onMouseEnter={() => setMoreOpen(true)} onMouseLeave={() => setMoreOpen(false)}>
-            <button className={`flex items-center gap-1 text-sm font-medium hover:text-gold ${scrolled ? "text-foreground" : "text-white"}`}>
+            <button className={`flex items-center gap-1 text-sm font-medium hover:text-gold ${scrolled ? "text-white" : "text-white"}`}>
               More <ChevronDown className="h-4 w-4" />
             </button>
             {moreOpen && (
@@ -165,7 +165,7 @@ function Header() {
           <a href="#contact" className="hidden md:inline-flex items-center gap-2 bg-gold text-black px-5 py-2.5 text-sm font-medium rounded-sm hover:bg-[oklch(0.7_0.14_75)] transition-colors">
             Get Quote <ArrowRight className="h-4 w-4" />
           </a>
-          <button onClick={() => setOpen(!open)} className={`lg:hidden ${scrolled ? "text-foreground" : "text-white"}`} aria-label="Menu">
+          <button onClick={() => setOpen(!open)} className={`lg:hidden ${scrolled ? "text-white" : "text-white"}`} aria-label="Menu">
             {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
         </div>
