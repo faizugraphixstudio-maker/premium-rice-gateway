@@ -329,18 +329,19 @@ function About() {
 }
 
 function Products() {
+  const featured = PRODUCTS.slice(0, 6);
   return (
     <section id="products" className="py-24 md:py-32 bg-secondary/50">
       <div className="mx-auto max-w-7xl px-6">
         <div className="max-w-3xl mb-16 text-center mx-auto">
           <SectionLabel>Our Portfolio</SectionLabel>
           <h2 className="font-display text-4xl md:text-5xl font-medium leading-tight">
-            Ten varieties. <span className="italic gold-text">One uncompromising</span> standard.
+            Ten varieties. <span className="italic red-text">One uncompromising</span> standard.
           </h2>
           <p className="mt-5 text-muted-foreground text-lg">From the world-renowned Super Basmati to specialty parboiled varieties — every grain meets export-grade specification.</p>
         </div>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
-          {PRODUCTS.map((p) => (
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {featured.map((p) => (
             <Link
               key={p.slug}
               to="/products/$slug"
@@ -353,14 +354,21 @@ function Products() {
               <div className="p-5">
                 <h3 className="font-display text-lg font-medium leading-tight">{p.name}</h3>
                 <p className="mt-2 text-xs text-muted-foreground line-clamp-3 leading-relaxed">{p.desc}</p>
-                <span className="mt-4 inline-flex items-center gap-1.5 text-xs font-medium text-foreground group-hover:text-gold transition-colors">
+                <span className="mt-4 inline-flex items-center gap-1.5 text-xs font-medium text-foreground group-hover:red-text transition-colors">
                   View Details <ArrowRight className="h-3 w-3" />
                 </span>
               </div>
             </Link>
           ))}
         </div>
-
+        <div className="mt-14 text-center">
+          <Link
+            to="/products"
+            className="group inline-flex items-center gap-3 bg-black text-gold border border-gold px-8 py-4 rounded-sm font-semibold hover:bg-gold hover:text-black transition-all"
+          >
+            Explore More Products <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+          </Link>
+        </div>
       </div>
     </section>
   );
