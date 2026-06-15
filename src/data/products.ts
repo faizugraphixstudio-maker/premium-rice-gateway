@@ -1,8 +1,13 @@
-import grainsImg from "@/assets/basmati-grains.jpg";
-import pBasmati from "@/assets/product-basmati.jpg";
-import pWhite from "@/assets/product-white.jpg";
-import pBrown from "@/assets/product-brown.jpg";
-import pSella from "@/assets/product-sella.jpg";
+import bagSuperBasmati from "@/assets/bag-super-basmati.jpg";
+import bag1121 from "@/assets/bag-1121.jpg";
+import bag1509 from "@/assets/bag-1509.jpg";
+import bagPk386 from "@/assets/bag-pk386.jpg";
+import bagIrri6 from "@/assets/bag-irri6.jpg";
+import bagBrown from "@/assets/bag-brown.jpg";
+import bagSteam from "@/assets/bag-steam.jpg";
+import bagSella from "@/assets/bag-sella.jpg";
+import bagLongGrain from "@/assets/bag-longgrain.jpg";
+import bagWhite from "@/assets/bag-white.jpg";
 
 export type Product = {
   slug: string;
@@ -27,7 +32,7 @@ export const PRODUCTS: Product[] = [
     slug: "super-basmati-rice",
     name: "Super Basmati Rice",
     desc: "Long, slender grains with an unmistakable aroma — the crown jewel of Pakistani Basmati.",
-    img: pBasmati,
+    img: bagSuperBasmati,
     tagline: "The Crown Jewel of Pakistani Basmati",
     origin: "Punjab, Pakistan",
     grainLength: "7.2 – 7.5 mm (avg)",
@@ -47,7 +52,7 @@ export const PRODUCTS: Product[] = [
     slug: "1121-basmati-rice",
     name: "1121 Basmati Rice",
     desc: "Extra-long grain Basmati prized for length, elongation, and exceptional fluffiness.",
-    img: grainsImg,
+    img: bag1121,
     tagline: "World's Longest Grain Rice",
     origin: "Punjab, Pakistan",
     grainLength: "8.3 – 8.4 mm (avg)",
@@ -67,7 +72,7 @@ export const PRODUCTS: Product[] = [
     slug: "1509-basmati-rice",
     name: "1509 Basmati Rice",
     desc: "Premium Basmati with quick cooking time and pristine white finish.",
-    img: pWhite,
+    img: bag1509,
     tagline: "Quick-Cook Premium Basmati",
     origin: "Punjab, Pakistan",
     grainLength: "8.0 – 8.2 mm (avg)",
@@ -87,7 +92,7 @@ export const PRODUCTS: Product[] = [
     slug: "pk-386-rice",
     name: "PK-386 Rice",
     desc: "Long grain non-Basmati known for clean appearance and consistent quality.",
-    img: pBasmati,
+    img: bagPk386,
     tagline: "Reliable Long Grain Workhorse",
     origin: "Sindh & Punjab, Pakistan",
     grainLength: "6.5 – 6.8 mm (avg)",
@@ -107,7 +112,7 @@ export const PRODUCTS: Product[] = [
     slug: "irri-6-rice",
     name: "IRRI-6 Rice",
     desc: "Versatile medium grain rice ideal for foodservice and industrial applications.",
-    img: pWhite,
+    img: bagIrri6,
     tagline: "The Global Volume Variety",
     origin: "Sindh, Pakistan",
     grainLength: "6.2 mm (avg)",
@@ -127,7 +132,7 @@ export const PRODUCTS: Product[] = [
     slug: "brown-rice",
     name: "Brown Rice",
     desc: "Whole-grain rice retaining bran and germ — naturally rich in fiber and minerals.",
-    img: pBrown,
+    img: bagBrown,
     tagline: "Whole Grain. Whole Goodness.",
     origin: "Punjab, Pakistan",
     grainLength: "6.8 – 7.2 mm",
@@ -147,7 +152,7 @@ export const PRODUCTS: Product[] = [
     slug: "steam-rice",
     name: "Steam Rice",
     desc: "Steam-treated Basmati preserving nutrients with improved cooking performance.",
-    img: pSella,
+    img: bagSteam,
     tagline: "Nutrient-Locked Premium Grain",
     origin: "Punjab, Pakistan",
     grainLength: "7.2 – 8.2 mm",
@@ -167,7 +172,7 @@ export const PRODUCTS: Product[] = [
     slug: "sella-rice",
     name: "Sella Rice",
     desc: "Parboiled rice with a golden hue, firm texture, and non-sticky cooked grains.",
-    img: pSella,
+    img: bagSella,
     tagline: "Golden Parboiled Excellence",
     origin: "Punjab & Sindh, Pakistan",
     grainLength: "7.0 – 8.3 mm (variety dependent)",
@@ -187,7 +192,7 @@ export const PRODUCTS: Product[] = [
     slug: "long-grain-rice",
     name: "Long Grain Rice",
     desc: "Slender, elongated grains that cook light, dry, and separate.",
-    img: grainsImg,
+    img: bagLongGrain,
     tagline: "Light, Dry, Perfectly Separate",
     origin: "Pakistan",
     grainLength: "6.6 – 7.5 mm",
@@ -207,7 +212,7 @@ export const PRODUCTS: Product[] = [
     slug: "white-rice",
     name: "White Rice",
     desc: "Polished, milled white rice in multiple grades for global distribution.",
-    img: pWhite,
+    img: bagWhite,
     tagline: "Clean. Polished. Global Standard.",
     origin: "Pakistan",
     grainLength: "Multiple varieties",

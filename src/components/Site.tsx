@@ -58,10 +58,8 @@ const STATS = [
 
 const CERTS = ["ISO 22000", "HACCP", "BRC Global", "SGS Verified", "Halal Certified", "FSSAI"];
 
-const REGIONS = [
-  "Middle East", "European Union", "United Kingdom", "North America",
-  "Africa", "Southeast Asia", "Australia & Oceania", "South America",
-];
+
+
 
 const TESTIMONIALS = [
   { quote: "UTS Rice Co. has been our most consistent Basmati supplier for the past seven years. Every shipment arrives on schedule and exceeds spec.", name: "Khalid Al-Rashid", role: "Procurement Director", company: "Gulf Foods Trading, Dubai" },
@@ -94,11 +92,10 @@ export function Site() {
       <Hero />
       <Stats />
       <About />
-      <Products />
       <WhyUs />
       <Quality />
       <Certifications />
-      <ExportNetwork />
+      <Products />
       <Gallery />
       <Testimonials />
       <Faq />
@@ -108,6 +105,7 @@ export function Site() {
     </div>
   );
 }
+
 
 function Logo() {
   return (
@@ -393,39 +391,8 @@ function Certifications() {
   );
 }
 
-function ExportNetwork() {
-  return (
-    <section id="export" className="py-24 md:py-32 bg-secondary/50 relative">
-      <div className="mx-auto max-w-7xl px-6 grid lg:grid-cols-2 gap-16 items-center">
-        <div>
-          <SectionLabel>Global Reach</SectionLabel>
-          <h2 className="font-display text-4xl md:text-5xl font-medium">A worldwide network <span className="italic gold-text">on every continent.</span></h2>
-          <p className="mt-5 text-muted-foreground text-lg">Our export operations span sixty countries, supported by long-standing partnerships with importers, distributors, and major food brands.</p>
-          <div className="mt-8 grid grid-cols-2 gap-3">
-            {REGIONS.map((r) => (
-              <div key={r} className="flex items-center gap-3 p-3 bg-white rounded-sm border border-border">
-                <MapPin className="h-4 w-4 text-gold shrink-0" />
-                <span className="text-sm font-medium">{r}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-        <div className="relative">
-          <img src={shippingImg} alt="International export shipping" loading="lazy" width={1600} height={900} className="rounded-sm shadow-2xl w-full h-auto" />
-          <div className="absolute bottom-6 left-6 right-6 bg-black/90 backdrop-blur text-white p-6 rounded-sm">
-            <div className="flex items-center gap-4">
-              <Globe className="h-10 w-10 text-gold" />
-              <div>
-                <div className="font-display text-2xl">60+ Countries</div>
-                <div className="text-xs uppercase tracking-widest text-white/60">Active export destinations</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
+
+
 
 function Gallery() {
   const [active, setActive] = useState<number | null>(null);
