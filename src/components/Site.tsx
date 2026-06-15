@@ -243,18 +243,19 @@ function Hero() {
 
 function Stats() {
   return (
-    <section className="bg-black text-white py-16 md:py-20">
+    <section className="bg-brand-red text-white py-16 md:py-20">
       <div className="mx-auto max-w-7xl px-6 grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
         {STATS.map((s) => (
-          <div key={s.label} className="text-center md:text-left border-l border-white/10 pl-6">
-            <div className="font-display text-4xl md:text-5xl font-medium gold-text">{s.value}</div>
-            <div className="mt-2 text-sm uppercase tracking-widest text-white/60">{s.label}</div>
+          <div key={s.label} className="text-center md:text-left border-l border-white/25 pl-6">
+            <div className="font-display text-4xl md:text-5xl font-bold text-gold">{s.value}</div>
+            <div className="mt-2 text-sm uppercase tracking-widest text-white/85">{s.label}</div>
           </div>
         ))}
       </div>
     </section>
   );
 }
+
 
 function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
