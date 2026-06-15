@@ -113,7 +113,7 @@ function ProductPage() {
             About <span className="italic gold-text">{product.name}</span>
           </h2>
           <div className="mt-6 space-y-5 text-muted-foreground text-lg leading-relaxed">
-            {product.longDescription.map((p, i) => <p key={i}>{p}</p>)}
+            {product.longDescription.map((p: string, i: number) => <p key={i}>{p}</p>)}
           </div>
         </div>
       </section>
@@ -152,7 +152,7 @@ function ProductPage() {
             <h3 className="font-display text-2xl font-medium">Packaging Options</h3>
             <p className="mt-2 text-white/60 text-sm">Flexible packaging to meet retail, wholesale, and bulk export needs.</p>
             <ul className="mt-6 space-y-3">
-              {product.packaging.map((p) => (
+              {product.packaging.map((p: string) => (
                 <li key={p} className="flex items-start gap-3">
                   <BadgeCheck className="h-5 w-5 text-gold shrink-0 mt-0.5" />
                   <span className="text-sm">{p}</span>
@@ -167,7 +167,7 @@ function ProductPage() {
             <div className="mt-8">
               <div className="text-xs uppercase tracking-widest text-muted-foreground mb-3">Ideal Uses</div>
               <div className="flex flex-wrap gap-2">
-                {product.uses.map((u) => (
+                {product.uses.map((u: string) => (
                   <span key={u} className="text-xs font-medium bg-white border border-border px-3 py-1.5 rounded-sm">{u}</span>
                 ))}
               </div>
