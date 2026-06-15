@@ -165,7 +165,7 @@ function Header() {
           <a href="#contact" className="hidden md:inline-flex items-center gap-2 bg-gold text-black px-5 py-2.5 text-sm font-medium rounded-sm hover:bg-[oklch(0.7_0.14_75)] transition-colors">
             Get Quote <ArrowRight className="h-4 w-4" />
           </a>
-          <button onClick={() => setOpen(!open)} className={`lg:hidden ${scrolled ? "text-foreground" : "text-white"}`} aria-label="Menu">
+          <button onClick={() => setOpen(!open)} className={`lg:hidden ${scrolled ? "text-white" : "text-white"}`} aria-label="Menu">
             {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
         </div>
