@@ -143,7 +143,7 @@ function Header() {
               <div className="absolute left-1/2 -translate-x-1/2 top-full pt-3 w-56">
                 <div className="rounded-md bg-white shadow-xl border border-border overflow-hidden animate-fade-up">
                   {NAV_MORE.map((item) => (
-                    <a key={item.label} href={item.href} className="block px-5 py-3 text-sm text-foreground hover:bg-secondary hover:text-brand-red transition-colors">{item.label}</a>
+                    <a key={item.label} href={item.href} className="block px-5 py-3 text-sm text-foreground hover:bg-secondary hover:red-text transition-colors">{item.label}</a>
                   ))}
                 </div>
               </div>
@@ -299,7 +299,7 @@ function About() {
         <div>
           <SectionLabel>About UTS Rice Co.</SectionLabel>
           <h2 className="font-display text-4xl md:text-5xl font-medium leading-tight">
-            A heritage of rice <span className="italic gold-text">excellence</span>, exported with integrity.
+            A heritage of rice <span className="italic red-text">excellence</span>, exported with integrity.
           </h2>
           <p className="mt-6 text-muted-foreground text-lg leading-relaxed">
             For over two decades, UTS Rice Co. has stood at the forefront of Pakistani rice export — bridging the fertile fields of Punjab and Sindh with discerning buyers in more than sixty countries. We don't just trade rice; we steward a craft.
@@ -380,7 +380,7 @@ function WhyUs() {
       <div className="mx-auto max-w-7xl px-6">
         <div className="max-w-3xl mb-16 text-center mx-auto">
           <SectionLabel>Why Choose Us</SectionLabel>
-          <h2 className="font-display text-4xl md:text-5xl font-medium">Built on trust. <span className="italic gold-text">Proven by results.</span></h2>
+          <h2 className="font-display text-4xl md:text-5xl font-medium">Built on trust. <span className="italic red-text">Proven by results.</span></h2>
         </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {FEATURES.map((f) => (
@@ -435,7 +435,7 @@ function Certifications() {
     <section id="certifications" className="py-24 md:py-32 bg-background">
       <div className="mx-auto max-w-7xl px-6 text-center">
         <SectionLabel>Certifications</SectionLabel>
-        <h2 className="font-display text-4xl md:text-5xl font-medium">Trusted by <span className="italic gold-text">global standards.</span></h2>
+        <h2 className="font-display text-4xl md:text-5xl font-medium">Trusted by <span className="italic red-text">global standards.</span></h2>
         <p className="mt-5 max-w-2xl mx-auto text-muted-foreground text-lg">Independently audited and certified by the world's most respected regulatory bodies.</p>
         <div className="mt-14 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
           {CERTS.map((c) => (
@@ -462,7 +462,7 @@ function Gallery() {
       <div className="mx-auto max-w-7xl px-6">
         <div className="max-w-3xl mb-16 text-center mx-auto">
           <SectionLabel>Gallery</SectionLabel>
-          <h2 className="font-display text-4xl md:text-5xl font-medium">Inside our <span className="italic gold-text">world.</span></h2>
+          <h2 className="font-display text-4xl md:text-5xl font-medium">Inside our <span className="italic red-text">world.</span></h2>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
           {GALLERY.map((g, i) => (
@@ -522,7 +522,7 @@ function Faq() {
       <div className="mx-auto max-w-4xl px-6">
         <div className="text-center mb-16">
           <SectionLabel>FAQ</SectionLabel>
-          <h2 className="font-display text-4xl md:text-5xl font-medium">Frequently asked <span className="italic gold-text">questions.</span></h2>
+          <h2 className="font-display text-4xl md:text-5xl font-medium">Frequently asked <span className="italic red-text">questions.</span></h2>
         </div>
         <div className="space-y-3">
           {FAQS.map((f, i) => (
@@ -549,7 +549,7 @@ function Contact() {
       <div className="mx-auto max-w-7xl px-6 grid lg:grid-cols-5 gap-12">
         <div className="lg:col-span-2">
           <SectionLabel>Get in Touch</SectionLabel>
-          <h2 className="font-display text-4xl md:text-5xl font-medium leading-tight">Looking for a reliable <span className="italic gold-text">rice export partner?</span></h2>
+          <h2 className="font-display text-4xl md:text-5xl font-medium leading-tight">Looking for a reliable <span className="italic red-text">rice export partner?</span></h2>
           <p className="mt-5 text-muted-foreground text-lg">Contact our team for quotations, product information, and export inquiries.</p>
           <div className="mt-10 space-y-5">
             {[
