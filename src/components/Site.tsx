@@ -110,10 +110,11 @@ export function Site() {
 function Logo() {
   return (
     <Link to="/" className="flex items-center group">
-      <img src={logoAsset.url} alt="UTS Millers Suppliers & Exporters" className="h-12 w-auto object-contain" />
+      <img src={logoAsset.url} alt="UTS Millers Suppliers & Exporters" className="h-14 md:h-16 w-auto object-contain" />
     </Link>
   );
 }
+
 
 function Header() {
   const [scrolled, setScrolled] = useState(false);
@@ -130,19 +131,19 @@ function Header() {
     <header className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ${scrolled ? "bg-black/90 backdrop-blur-md shadow-sm py-3" : "bg-transparent py-5"}`}>
       <div className="mx-auto max-w-7xl px-6 grid grid-cols-[auto_1fr_auto] items-center gap-6">
         <Logo />
-        <nav className="hidden lg:flex items-center justify-center gap-8">
+        <nav className="hidden lg:flex items-center justify-center gap-9">
           {NAV_MAIN.map((item) => (
-            <a key={item.label} href={item.href} className={`text-sm font-medium tracking-wide transition-colors hover:text-gold ${scrolled ? "text-white" : "text-white"}`}>{item.label}</a>
+            <a key={item.label} href={item.href} className="text-base font-semibold tracking-wide text-white transition-colors hover:text-gold">{item.label}</a>
           ))}
           <div className="relative" onMouseEnter={() => setMoreOpen(true)} onMouseLeave={() => setMoreOpen(false)}>
-            <button className={`flex items-center gap-1 text-sm font-medium hover:text-gold ${scrolled ? "text-white" : "text-white"}`}>
+            <button className="flex items-center gap-1 text-base font-semibold text-white hover:text-gold transition-colors">
               More <ChevronDown className="h-4 w-4" />
             </button>
             {moreOpen && (
               <div className="absolute left-1/2 -translate-x-1/2 top-full pt-3 w-56">
                 <div className="rounded-md bg-white shadow-xl border border-border overflow-hidden animate-fade-up">
                   {NAV_MORE.map((item) => (
-                    <a key={item.label} href={item.href} className="block px-5 py-3 text-sm text-foreground hover:bg-secondary hover:text-gold transition-colors">{item.label}</a>
+                    <a key={item.label} href={item.href} className="block px-5 py-3 text-sm text-foreground hover:bg-secondary hover:text-brand-red transition-colors">{item.label}</a>
                   ))}
                 </div>
               </div>
@@ -150,10 +151,10 @@ function Header() {
           </div>
         </nav>
         <div className="flex items-center gap-3 justify-end">
-          <a href="#contact" className="hidden md:inline-flex items-center gap-2 bg-gold text-black px-5 py-2.5 text-sm font-medium rounded-sm hover:bg-[oklch(0.7_0.14_75)] transition-colors">
+          <a href="#contact" className="hidden md:inline-flex items-center gap-2 bg-brand-red text-white px-5 py-2.5 text-sm font-semibold rounded-sm hover:bg-brand-red-dark transition-colors shadow-md">
             Get Quote <ArrowRight className="h-4 w-4" />
           </a>
-          <button onClick={() => setOpen(!open)} className={`lg:hidden ${scrolled ? "text-white" : "text-white"}`} aria-label="Menu">
+          <button onClick={() => setOpen(!open)} className="lg:hidden text-white" aria-label="Menu">
             {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
         </div>
@@ -162,7 +163,7 @@ function Header() {
         <div className="lg:hidden bg-white border-t border-border shadow-lg">
           <nav className="px-6 py-4 flex flex-col gap-1">
             {[...NAV_MAIN, ...NAV_MORE].map((item) => (
-              <a key={item.label} href={item.href} onClick={() => setOpen(false)} className="px-2 py-3 text-sm font-medium border-b border-border last:border-0">{item.label}</a>
+              <a key={item.label} href={item.href} onClick={() => setOpen(false)} className="px-2 py-3 text-base font-medium border-b border-border last:border-0">{item.label}</a>
             ))}
           </nav>
         </div>
@@ -171,41 +172,74 @@ function Header() {
   );
 }
 
+
 function Hero() {
+  const slides = [heroImg, processingImg, packagingImg, inspectionImg];
+  const [idx, setIdx] = useState(0);
+  useEffect(() => {
+    const id = setInterval(() => setIdx((p) => (p + 1) % slides.length), 4500);
+    return () => clearInterval(id);
+  }, [slides.length]);
+
   return (
     <section className="relative min-h-[100vh] flex items-center overflow-hidden">
-      <img src={heroImg} alt="Premium rice paddy fields" width={1920} height={1080} className="absolute inset-0 h-full w-full object-cover" />
-      <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/80" />
-      <div className="relative mx-auto max-w-7xl px-6 py-32 grid lg:grid-cols-12 gap-12 items-center">
+      <div className="absolute inset-0 overflow-hidden">
+        <div
+          className="flex h-full transition-transform duration-[1200ms] ease-in-out"
+          style={{ width: `${slides.length * 100}%`, transform: `translateX(-${idx * (100 / slides.length)}%)` }}
+        >
+          {slides.map((src, k) => (
+            <img
+              key={k}
+              src={src}
+              alt="Premium Pakistani rice fields, processing, packaging and inspection"
+              width={1920}
+              height={1080}
+              className="h-full object-cover flex-shrink-0"
+              style={{ width: `${100 / slides.length}%` }}
+            />
+          ))}
+        </div>
+      </div>
+      <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/35 to-black/80" />
+      <div className="relative mx-auto max-w-7xl px-6 py-32 grid lg:grid-cols-12 gap-12 items-center w-full">
         <div className="lg:col-span-8 animate-fade-up">
-          <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 backdrop-blur px-4 py-1.5 mb-8">
+          <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-brand-red/80 backdrop-blur px-4 py-1.5 mb-8">
             <span className="h-1.5 w-1.5 rounded-full bg-gold" />
-            <span className="text-xs font-medium uppercase tracking-[0.2em] text-white">EXPORTING EXCELLENCE SINCE 2010</span>
+            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-white">EXPORTING EXCELLENCE SINCE 2010</span>
           </div>
-          <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-medium text-white leading-[1.05] tracking-tight">
+          <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-[1.05] tracking-tight">
             Premium Pakistani Rice<br />
-            <span className="gold-text italic">{"\n"}</span>
+            <span className="gold-text">Exported Worldwide</span>
           </h1>
-          <p className="mt-8 max-w-2xl text-lg md:text-xl text-white/80 leading-relaxed font-light">
+          <p className="mt-8 max-w-2xl text-lg md:text-xl text-white/85 leading-relaxed font-light">
             Delivering exceptional quality, purity, and consistency to international markets across six continents.
           </p>
           <div className="mt-10 flex flex-wrap gap-4">
-            <a href="#products" className="group inline-flex items-center gap-3 bg-gold text-black px-8 py-4 rounded-sm font-medium hover:bg-[oklch(0.7_0.14_75)] transition-all hover:gap-4">
+            <a href="#products" className="group inline-flex items-center gap-3 bg-brand-red text-white px-8 py-4 rounded-sm font-semibold hover:bg-brand-red-dark transition-all hover:gap-4 shadow-lg">
               Explore Products <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
             </a>
-            <a href="#contact" className="inline-flex items-center gap-3 border border-white/30 text-white px-8 py-4 rounded-sm font-medium hover:bg-white hover:text-black transition-colors">
+            <a href="#contact" className="inline-flex items-center gap-3 bg-gold text-black px-8 py-4 rounded-sm font-semibold hover:bg-gold-soft transition-colors">
               Request a Quote
             </a>
           </div>
         </div>
       </div>
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/60">
-        <span className="text-xs tracking-widest uppercase">Scroll</span>
-        <div className="w-px h-12 bg-gradient-to-b from-white/60 to-transparent" />
+      {/* Slide indicators */}
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+        {slides.map((_, k) => (
+          <button
+            key={k}
+            onClick={() => setIdx(k)}
+            aria-label={`Slide ${k + 1}`}
+            className={`h-1.5 rounded-full transition-all ${k === idx ? "bg-gold w-10" : "bg-white/40 w-4 hover:bg-white/70"}`}
+          />
+        ))}
       </div>
     </section>
   );
 }
+
 
 function Stats() {
   return (
