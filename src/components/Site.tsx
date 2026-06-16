@@ -125,6 +125,19 @@ export function Site() {
   );
 }
 
+function HeroCtas() {
+  return (
+    <div className="flex flex-wrap gap-4">
+      <a href="#products" className="group inline-flex items-center gap-3 bg-gold text-black px-8 py-4 rounded-full font-semibold hover:bg-gold-soft transition-all hover:gap-4 shadow-lg">
+        Explore Products <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+      </a>
+      <a href="#contact" className="inline-flex items-center gap-3 border border-gold text-gold px-8 py-4 rounded-full font-semibold hover:bg-gold hover:text-black transition-colors">
+        Request a Quote
+      </a>
+    </div>
+  );
+}
+
 
 function Logo() {
   return (
