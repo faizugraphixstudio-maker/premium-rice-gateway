@@ -680,7 +680,7 @@ function Contact() {
             <label className="block text-xs uppercase tracking-widest text-muted-foreground mb-2">Message</label>
             <textarea name="message" rows={5} maxLength={1500} required className="w-full bg-white border border-border rounded-sm px-4 py-3 text-sm focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold transition-all resize-none" />
           </div>
-          <button type="submit" className="mt-6 inline-flex items-center gap-3 bg-black text-white px-8 py-4 rounded-sm font-medium hover:bg-gold hover:text-black transition-colors">
+          <button type="submit" className="mt-6 w-full inline-flex justify-center items-center gap-3 bg-black text-white px-8 py-4 rounded-full font-medium hover:bg-gold hover:text-black transition-colors">
             Send Inquiry <Send className="h-4 w-4" />
           </button>
           {sent && <div className="mt-4 text-sm text-gold font-medium">Thank you. Our export team will contact you within 24 hours.</div>}
