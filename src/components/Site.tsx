@@ -223,20 +223,20 @@ function Hero() {
       </div>
       <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/90" />
 
-      {/* Prev / Next */}
+      {/* Prev / Next (minimal) */}
       <button
         onClick={() => go(-1)}
         aria-label="Previous slide"
-        className="absolute left-4 md:left-6 top-1/2 -translate-y-1/2 z-10 h-12 w-12 grid place-items-center rounded-full bg-black/40 hover:bg-gold hover:text-black text-white border border-white/30 backdrop-blur transition-colors"
+        className="absolute left-3 md:left-6 top-1/2 -translate-y-1/2 z-10 h-11 w-11 grid place-items-center text-white/80 hover:text-gold transition-colors"
       >
-        <ArrowLeft className="h-5 w-5" />
+        <ArrowLeft className="h-7 w-7" strokeWidth={1.5} />
       </button>
       <button
         onClick={() => go(1)}
         aria-label="Next slide"
-        className="absolute right-4 md:right-6 top-1/2 -translate-y-1/2 z-10 h-12 w-12 grid place-items-center rounded-full bg-black/40 hover:bg-gold hover:text-black text-white border border-white/30 backdrop-blur transition-colors"
+        className="absolute right-3 md:right-6 top-1/2 -translate-y-1/2 z-10 h-11 w-11 grid place-items-center text-white/80 hover:text-gold transition-colors"
       >
-        <ArrowRight className="h-5 w-5" />
+        <ArrowRight className="h-7 w-7" strokeWidth={1.5} />
       </button>
 
       <div className="relative mx-auto max-w-7xl px-6 py-32 grid lg:grid-cols-12 gap-12 items-center w-full">
@@ -252,13 +252,8 @@ function Hero() {
           <p className="mt-8 max-w-2xl text-lg md:text-xl text-white/90 leading-relaxed font-light">
             Delivering exceptional quality, purity, and consistency to international markets across six continents.
           </p>
-          <div className="mt-10 flex flex-wrap gap-4">
-            <a href="#products" className="group inline-flex items-center gap-3 bg-gold text-black px-8 py-4 rounded-sm font-semibold hover:bg-gold-soft transition-all hover:gap-4 shadow-lg">
-              Explore Products <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
-            </a>
-            <a href="#contact" className="inline-flex items-center gap-3 border border-gold text-gold px-8 py-4 rounded-sm font-semibold hover:bg-gold hover:text-black transition-colors">
-              Request a Quote
-            </a>
+          <div className="mt-10">
+            <HeroCtas />
           </div>
         </div>
       </div>
