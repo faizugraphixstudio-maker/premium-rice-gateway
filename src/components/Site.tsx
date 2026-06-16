@@ -483,7 +483,13 @@ function Certifications() {
 
 
 function Gallery() {
+  const INITIAL = 6;
   const [active, setActive] = useState<number | null>(null);
+  const [showAll, setShowAll] = useState(false);
+  const visible = showAll ? GALLERY : GALLERY.slice(0, INITIAL);
+  const go = (dir: number) =>
+    setActive((p) => (p === null ? p : (p + dir + GALLERY.length) % GALLERY.length));
+
   return (
     <section id="gallery" className="py-24 md:py-32 bg-background">
       <div className="mx-auto max-w-7xl px-6">
@@ -492,8 +498,8 @@ function Gallery() {
           <h2 className="font-display text-4xl md:text-5xl font-medium">Inside our <span className="italic red-text">world.</span></h2>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-          {GALLERY.map((g, i) => (
-            <button key={i} onClick={() => setActive(i)} className={`group relative overflow-hidden rounded-sm ${i === 0 ? "md:col-span-2 md:row-span-2 aspect-square md:aspect-auto" : "aspect-square"}`}>
+          {visible.map((g, i) => (
+            <button key={i} onClick={() => setActive(i)} className={`group relative overflow-hidden rounded-xl ${i === 0 && !showAll ? "md:col-span-2 md:row-span-2 aspect-square md:aspect-auto" : "aspect-square"}`}>
               <img src={g.src} alt={g.alt} loading="lazy" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
               <div className="absolute inset-0 bg-black/0 group-hover:bg-black/50 transition-colors grid place-items-center">
                 <Plus className="h-8 w-8 text-white opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -501,11 +507,35 @@ function Gallery() {
             </button>
           ))}
         </div>
+        {!showAll && GALLERY.length > INITIAL && (
+          <div className="mt-10 text-center">
+            <button
+              onClick={() => setShowAll(true)}
+              className="group inline-flex items-center gap-3 bg-black text-gold border border-gold px-8 py-4 rounded-full font-semibold hover:bg-gold hover:text-black transition-all"
+            >
+              More Photos <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+            </button>
+          </div>
+        )}
       </div>
       {active !== null && (
         <div onClick={() => setActive(null)} className="fixed inset-0 z-[60] bg-black/95 grid place-items-center p-6 animate-fade-up">
-          <button className="absolute top-6 right-6 text-white" onClick={() => setActive(null)}><X className="h-8 w-8" /></button>
-          <img src={GALLERY[active].src} alt={GALLERY[active].alt} className="max-h-[90vh] max-w-full rounded-sm" />
+          <button className="absolute top-6 right-6 text-white hover:text-gold transition-colors" onClick={(e) => { e.stopPropagation(); setActive(null); }}><X className="h-8 w-8" /></button>
+          <button
+            onClick={(e) => { e.stopPropagation(); go(-1); }}
+            aria-label="Previous image"
+            className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 text-white/80 hover:text-gold transition-colors"
+          >
+            <ArrowLeft className="h-9 w-9" strokeWidth={1.5} />
+          </button>
+          <button
+            onClick={(e) => { e.stopPropagation(); go(1); }}
+            aria-label="Next image"
+            className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 text-white/80 hover:text-gold transition-colors"
+          >
+            <ArrowRight className="h-9 w-9" strokeWidth={1.5} />
+          </button>
+          <img onClick={(e) => e.stopPropagation()} src={GALLERY[active].src} alt={GALLERY[active].alt} className="max-h-[90vh] max-w-full rounded-xl" />
         </div>
       )}
     </section>
@@ -514,28 +544,55 @@ function Gallery() {
 
 function Testimonials() {
   const [i, setI] = useState(0);
+  useEffect(() => {
+    const id = setInterval(() => setI((p) => (p + 1) % TESTIMONIALS.length), 5000);
+    return () => clearInterval(id);
+  }, []);
+  const go = (dir: number) => setI((p) => (p + dir + TESTIMONIALS.length) % TESTIMONIALS.length);
+  const t = TESTIMONIALS[i];
   return (
     <section className="py-24 md:py-32 bg-black text-white">
       <div className="mx-auto max-w-4xl px-6 text-center">
         <SectionLabel>Testimonials</SectionLabel>
         <h2 className="font-display text-4xl md:text-5xl font-medium">What our partners <span className="italic gold-text">say.</span></h2>
         <div className="mt-16 relative">
-          <Quote className="h-16 w-16 text-gold/30 mx-auto mb-6" />
-          <blockquote className="font-display text-2xl md:text-3xl leading-relaxed font-light italic">
-            "{TESTIMONIALS[i].quote}"
-          </blockquote>
-          <div className="mt-8 flex items-center justify-center gap-1 text-gold">
-            {Array.from({ length: 5 }).map((_, k) => <Star key={k} className="h-4 w-4 fill-current" />)}
-          </div>
-          <div className="mt-6">
-            <div className="font-medium">{TESTIMONIALS[i].name}</div>
-            <div className="text-sm text-white/60">{TESTIMONIALS[i].role} — {TESTIMONIALS[i].company}</div>
+          {/* Prev / Next (minimal) */}
+          <button
+            onClick={() => go(-1)}
+            aria-label="Previous testimonial"
+            className="absolute left-0 md:-left-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-gold transition-colors"
+          >
+            <ArrowLeft className="h-7 w-7" strokeWidth={1.5} />
+          </button>
+          <button
+            onClick={() => go(1)}
+            aria-label="Next testimonial"
+            className="absolute right-0 md:-right-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-gold transition-colors"
+          >
+            <ArrowRight className="h-7 w-7" strokeWidth={1.5} />
+          </button>
+
+          <div key={i} className="animate-fade-up">
+            <Quote className="h-16 w-16 text-gold/30 mx-auto mb-6" />
+            <blockquote className="font-display text-2xl md:text-3xl leading-relaxed font-light italic">
+              "{t.quote}"
+            </blockquote>
+            <div className="mt-8 flex items-center justify-center gap-1 text-gold">
+              {Array.from({ length: 5 }).map((_, k) => <Star key={k} className="h-4 w-4 fill-current" />)}
+            </div>
+            <div className="mt-6">
+              <div className="font-medium">{t.name}</div>
+              <div className="text-sm text-white/60">{t.role} — {t.company}</div>
+            </div>
           </div>
           <div className="mt-10 flex justify-center gap-2">
             {TESTIMONIALS.map((_, k) => (
-              <button key={k} onClick={() => setI(k)} className={`h-1.5 rounded-full transition-all ${k === i ? "bg-gold w-10" : "bg-white/20 w-4"}`} aria-label={`Testimonial ${k + 1}`} />
+              <button key={k} onClick={() => setI(k)} className={`h-1.5 rounded-full transition-all ${k === i ? "bg-gold w-10" : "bg-white/20 w-4 hover:bg-white/40"}`} aria-label={`Testimonial ${k + 1}`} />
             ))}
           </div>
+        </div>
+        <div className="mt-14 flex justify-center">
+          <HeroCtas />
         </div>
       </div>
     </section>
