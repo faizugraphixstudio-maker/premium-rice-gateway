@@ -391,7 +391,7 @@ function Products() {
         <div className="mt-14 text-center">
           <Link
             to="/products"
-            className="group inline-flex items-center gap-3 bg-black text-gold border border-gold px-8 py-4 rounded-sm font-semibold hover:bg-gold hover:text-black transition-all"
+            className="group inline-flex items-center gap-3 bg-black text-gold border border-gold px-8 py-4 rounded-full font-semibold hover:bg-gold hover:text-black transition-all"
           >
             Explore More Products <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
           </Link>
