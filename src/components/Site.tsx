@@ -170,7 +170,7 @@ function Header() {
           </div>
         </nav>
         <div className="flex items-center gap-3 justify-end">
-          <a href="#contact" className="hidden md:inline-flex items-center gap-2 bg-gold text-black px-5 py-2.5 text-sm font-semibold rounded-sm hover:bg-gold-soft transition-colors shadow-md">
+          <a href="#contact" className="hidden md:inline-flex items-center gap-2 bg-gold text-black px-5 py-2.5 text-sm font-semibold rounded-full hover:bg-gold-soft transition-colors shadow-md">
             Get Quote <ArrowRight className="h-4 w-4" />
           </a>
           <button onClick={() => setOpen(!open)} className="lg:hidden text-white" aria-label="Menu">
