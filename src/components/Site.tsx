@@ -152,15 +152,15 @@ function Header() {
         <Logo />
         <nav className="hidden lg:flex items-center justify-center gap-9">
           {NAV_MAIN.map((item) => (
-            <a key={item.label} href={item.href} className="text-base font-semibold tracking-wide text-white transition-colors hover:text-gold">{item.label}</a>
+            <a key={item.label} href={item.href} className="nav-link text-base font-semibold tracking-wide text-white">{item.label}</a>
           ))}
           <div className="relative" onMouseEnter={() => setMoreOpen(true)} onMouseLeave={() => setMoreOpen(false)}>
-            <button className="flex items-center gap-1 text-base font-semibold text-white hover:text-gold transition-colors">
+            <button className="nav-link flex items-center gap-1 text-base font-semibold text-white">
               More <ChevronDown className="h-4 w-4" />
             </button>
             {moreOpen && (
               <div className="absolute left-1/2 -translate-x-1/2 top-full pt-3 w-56">
-                <div className="rounded-md bg-white shadow-xl border border-border overflow-hidden animate-fade-up">
+                <div className="rounded-xl bg-white shadow-xl border border-border overflow-hidden animate-fade-up">
                   {NAV_MORE.map((item) => (
                     <a key={item.label} href={item.href} className="block px-5 py-3 text-sm text-foreground hover:bg-secondary hover:red-text transition-colors">{item.label}</a>
                   ))}
