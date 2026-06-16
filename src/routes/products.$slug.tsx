@@ -1,5 +1,5 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { ArrowLeft, ArrowRight, BadgeCheck, MapPin, Wheat, Droplets, Sparkles, Boxes, Calendar, ChefHat, Mail, Phone } from "lucide-react";
+import { ArrowLeft, ArrowRight, BadgeCheck, MapPin, Wheat, Droplets, Sparkles, Boxes, Calendar, ChefHat, Mail, Phone, MessageCircle } from "lucide-react";
 import { getProduct, PRODUCTS } from "@/data/products";
 
 export const Route = createFileRoute("/products/$slug")({
@@ -73,30 +73,55 @@ function ProductPage() {
         </div>
       </header>
 
-      {/* Hero */}
+      {/* Hero: left image, right details, CTAs below */}
       <section className="relative bg-secondary/40 py-16 md:py-24">
-        <div className="mx-auto max-w-7xl px-6 grid lg:grid-cols-2 gap-12 items-center">
+        <div className="mx-auto max-w-7xl px-6 grid lg:grid-cols-2 gap-12 items-start">
           <div className="relative">
-            <img src={product.img} alt={product.name} className="rounded-sm shadow-2xl w-full aspect-square object-cover" />
-            <div className="absolute -top-4 -left-4 bg-gold text-black px-5 py-2 rounded-sm shadow-xl">
-              <div className="text-xs uppercase tracking-widest font-medium">Export Grade</div>
+            <img src={product.img} alt={product.name} className="rounded-2xl shadow-2xl w-full aspect-square object-cover" />
+            <div className="absolute -top-4 -left-4 bg-gold text-black px-5 py-2 rounded-full shadow-xl">
+              <div className="text-xs uppercase tracking-widest font-semibold">Export Grade</div>
             </div>
           </div>
           <div>
             <div className="inline-flex items-center gap-3 mb-4">
               <span className="h-px w-10 bg-gold" />
-              <span className="text-xs uppercase tracking-[0.3em] text-gold font-medium">Premium Rice Variety</span>
+              <span className="text-xs uppercase tracking-[0.3em] red-text font-semibold">Premium Rice Variety</span>
             </div>
-            <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-medium leading-tight">{product.name}</h1>
-            <p className="mt-4 text-xl text-gold italic font-light">{product.tagline}</p>
+            <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-semibold leading-tight">{product.name}</h1>
+            <p className="mt-4 text-xl red-text italic font-light">{product.tagline}</p>
             <p className="mt-6 text-muted-foreground text-lg leading-relaxed">{product.desc}</p>
-            <div className="mt-8 flex flex-wrap gap-4">
-              <Link to="/" hash="contact" className="inline-flex items-center gap-2 bg-gold text-black px-7 py-4 rounded-sm font-medium hover:bg-[oklch(0.7_0.14_75)] transition-colors">
-                Request Quote <ArrowRight className="h-4 w-4" />
-              </Link>
-              <a href="https://wa.me/923001234567" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 border border-foreground/20 px-7 py-4 rounded-sm font-medium hover:border-gold hover:text-gold transition-colors">
-                Chat on WhatsApp
+
+            <ul className="mt-8 grid sm:grid-cols-2 gap-x-6 gap-y-3">
+              {[
+                ["Origin", product.origin],
+                ["Grain Length", product.grainLength],
+                ["Moisture", product.moisture],
+                ["Purity", product.purity],
+              ].map(([k, v]) => (
+                <li key={k} className="flex flex-col">
+                  <span className="text-[10px] uppercase tracking-widest text-muted-foreground">{k}</span>
+                  <span className="text-sm font-semibold mt-0.5">{v}</span>
+                </li>
+              ))}
+            </ul>
+
+            {/* CTAs — same style as hero buttons */}
+            <div className="mt-10 flex flex-wrap gap-4">
+              <a
+                href={`https://wa.me/923001234567?text=${encodeURIComponent(`Hi UTS Rice Co., I'd like a quotation for ${product.name}.`)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group inline-flex items-center gap-3 bg-gold text-black px-8 py-4 rounded-full font-semibold hover:bg-gold-soft transition-all hover:gap-4 shadow-lg"
+              >
+                <MessageCircle className="h-5 w-5" /> Chat on WhatsApp
               </a>
+              <Link
+                to="/"
+                hash="contact"
+                className="inline-flex items-center gap-3 border border-[color:var(--brand-red)] red-text px-8 py-4 rounded-full font-semibold hover:bg-[color:var(--brand-red)] hover:text-white transition-colors"
+              >
+                Get Quote Now <ArrowRight className="h-5 w-5" />
+              </Link>
             </div>
           </div>
         </div>

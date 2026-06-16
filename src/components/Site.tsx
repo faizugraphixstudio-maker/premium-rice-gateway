@@ -65,6 +65,10 @@ const TESTIMONIALS = [
   { quote: "UTS Rice Co. has been our most consistent Basmati supplier for the past seven years. Every shipment arrives on schedule and exceeds spec.", name: "Khalid Al-Rashid", role: "Procurement Director", company: "Gulf Foods Trading, Dubai" },
   { quote: "The quality of their 1121 Basmati is exceptional. Our retail partners across Europe trust the brand we built around UTS Rice Co. rice.", name: "Sophie Laurent", role: "Managing Director", company: "Maison Riziere, Paris" },
   { quote: "Documentation, certifications, packaging — everything is handled with the professionalism of a Fortune 500 operation.", name: "James Okonkwo", role: "Head of Imports", company: "WestAfrica Foods Ltd, Lagos" },
+  { quote: "Their parboiled Sella is now the backbone of our private-label biryani range — flawless grain length and aroma in every batch.", name: "Aisha Mahmoud", role: "Category Manager", company: "BlueNile Retail, Cairo" },
+  { quote: "Five years, sixty containers, zero quality claims. That is the kind of partner every importer dreams of working with.", name: "Marcus Thornton", role: "Director of Sourcing", company: "Atlantic Grains LLC, Houston" },
+  { quote: "From sample dispatch to bill of lading, UTS Rice Co. communicates with rare clarity. Truly a benchmark exporter.", name: "Lin Wei",        role: "Import Lead",         company: "Pacific Foods Co., Singapore" },
+  { quote: "The aroma of their Super Basmati sells itself in our stores. Customers come back asking for the brand by name.", name: "Hiroshi Tanaka",  role: "Owner",               company: "Sakura Pantry, Tokyo" },
 ];
 
 const FAQS = [
@@ -76,6 +80,13 @@ const FAQS = [
   { q: "What payment methods do you accept?", a: "We accept Letters of Credit (L/C at sight), Telegraphic Transfer (T/T), and Documents against Payment (D/P) through Tier-1 banks." },
 ];
 
+import bagSuperBasmati from "@/assets/bag-super-basmati.jpg";
+import bag1121 from "@/assets/bag-1121.jpg";
+import bag1509 from "@/assets/bag-1509.jpg";
+import bagSella from "@/assets/bag-sella.jpg";
+import bagBrown from "@/assets/bag-brown.jpg";
+import bagSteam from "@/assets/bag-steam.jpg";
+
 const GALLERY = [
   { src: heroImg, alt: "Lush rice paddy fields at sunset" },
   { src: processingImg, alt: "Modern rice processing facility" },
@@ -83,6 +94,14 @@ const GALLERY = [
   { src: shippingImg, alt: "Export cargo containers at port" },
   { src: inspectionImg, alt: "Quality inspection laboratory" },
   { src: grainsImg, alt: "Premium Basmati rice grains" },
+  { src: bagSuperBasmati, alt: "Super Basmati export bag" },
+  { src: bag1121, alt: "1121 Basmati premium packaging" },
+  { src: bag1509, alt: "1509 Basmati retail bag" },
+  { src: bagSella, alt: "Sella parboiled rice bag" },
+  { src: bagBrown, alt: "Brown rice whole-grain bag" },
+  { src: bagSteam, alt: "Steam rice export bag" },
+  { src: pBasmati, alt: "Long-grain Basmati closeup" },
+  { src: pWhite, alt: "Polished white rice grains" },
 ];
 
 export function Site() {
@@ -102,6 +121,19 @@ export function Site() {
       <Contact />
       <Footer />
       <FloatingButtons />
+    </div>
+  );
+}
+
+function HeroCtas() {
+  return (
+    <div className="flex flex-wrap gap-4">
+      <a href="#products" className="group inline-flex items-center gap-3 bg-gold text-black px-8 py-4 rounded-full font-semibold hover:bg-gold-soft transition-all hover:gap-4 shadow-lg">
+        Explore Products <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+      </a>
+      <a href="#contact" className="inline-flex items-center gap-3 border border-gold text-gold px-8 py-4 rounded-full font-semibold hover:bg-gold hover:text-black transition-colors">
+        Request a Quote
+      </a>
     </div>
   );
 }
@@ -133,15 +165,15 @@ function Header() {
         <Logo />
         <nav className="hidden lg:flex items-center justify-center gap-9">
           {NAV_MAIN.map((item) => (
-            <a key={item.label} href={item.href} className="text-base font-semibold tracking-wide text-white transition-colors hover:text-gold">{item.label}</a>
+            <a key={item.label} href={item.href} className="nav-link text-base font-semibold tracking-wide text-white">{item.label}</a>
           ))}
           <div className="relative" onMouseEnter={() => setMoreOpen(true)} onMouseLeave={() => setMoreOpen(false)}>
-            <button className="flex items-center gap-1 text-base font-semibold text-white hover:text-gold transition-colors">
+            <button className="nav-link flex items-center gap-1 text-base font-semibold text-white">
               More <ChevronDown className="h-4 w-4" />
             </button>
             {moreOpen && (
               <div className="absolute left-1/2 -translate-x-1/2 top-full pt-3 w-56">
-                <div className="rounded-md bg-white shadow-xl border border-border overflow-hidden animate-fade-up">
+                <div className="rounded-xl bg-white shadow-xl border border-border overflow-hidden animate-fade-up">
                   {NAV_MORE.map((item) => (
                     <a key={item.label} href={item.href} className="block px-5 py-3 text-sm text-foreground hover:bg-secondary hover:red-text transition-colors">{item.label}</a>
                   ))}
@@ -151,7 +183,7 @@ function Header() {
           </div>
         </nav>
         <div className="flex items-center gap-3 justify-end">
-          <a href="#contact" className="hidden md:inline-flex items-center gap-2 bg-gold text-black px-5 py-2.5 text-sm font-semibold rounded-sm hover:bg-gold-soft transition-colors shadow-md">
+          <a href="#contact" className="hidden md:inline-flex items-center gap-2 bg-gold text-black px-5 py-2.5 text-sm font-semibold rounded-full hover:bg-gold-soft transition-colors shadow-md">
             Get Quote <ArrowRight className="h-4 w-4" />
           </a>
           <button onClick={() => setOpen(!open)} className="lg:hidden text-white" aria-label="Menu">
@@ -204,20 +236,20 @@ function Hero() {
       </div>
       <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/90" />
 
-      {/* Prev / Next */}
+      {/* Prev / Next (minimal) */}
       <button
         onClick={() => go(-1)}
         aria-label="Previous slide"
-        className="absolute left-4 md:left-6 top-1/2 -translate-y-1/2 z-10 h-12 w-12 grid place-items-center rounded-full bg-black/40 hover:bg-gold hover:text-black text-white border border-white/30 backdrop-blur transition-colors"
+        className="absolute left-3 md:left-6 top-1/2 -translate-y-1/2 z-10 h-11 w-11 grid place-items-center text-white/80 hover:text-gold transition-colors"
       >
-        <ArrowLeft className="h-5 w-5" />
+        <ArrowLeft className="h-7 w-7" strokeWidth={1.5} />
       </button>
       <button
         onClick={() => go(1)}
         aria-label="Next slide"
-        className="absolute right-4 md:right-6 top-1/2 -translate-y-1/2 z-10 h-12 w-12 grid place-items-center rounded-full bg-black/40 hover:bg-gold hover:text-black text-white border border-white/30 backdrop-blur transition-colors"
+        className="absolute right-3 md:right-6 top-1/2 -translate-y-1/2 z-10 h-11 w-11 grid place-items-center text-white/80 hover:text-gold transition-colors"
       >
-        <ArrowRight className="h-5 w-5" />
+        <ArrowRight className="h-7 w-7" strokeWidth={1.5} />
       </button>
 
       <div className="relative mx-auto max-w-7xl px-6 py-32 grid lg:grid-cols-12 gap-12 items-center w-full">
@@ -233,13 +265,8 @@ function Hero() {
           <p className="mt-8 max-w-2xl text-lg md:text-xl text-white/90 leading-relaxed font-light">
             Delivering exceptional quality, purity, and consistency to international markets across six continents.
           </p>
-          <div className="mt-10 flex flex-wrap gap-4">
-            <a href="#products" className="group inline-flex items-center gap-3 bg-gold text-black px-8 py-4 rounded-sm font-semibold hover:bg-gold-soft transition-all hover:gap-4 shadow-lg">
-              Explore Products <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
-            </a>
-            <a href="#contact" className="inline-flex items-center gap-3 border border-gold text-gold px-8 py-4 rounded-sm font-semibold hover:bg-gold hover:text-black transition-colors">
-              Request a Quote
-            </a>
+          <div className="mt-10">
+            <HeroCtas />
           </div>
         </div>
       </div>
@@ -346,7 +373,7 @@ function Products() {
               key={p.slug}
               to="/products/$slug"
               params={{ slug: p.slug }}
-              className="group bg-white rounded-sm overflow-hidden hover-lift border border-border block"
+              className="group bg-white rounded-2xl overflow-hidden hover-lift border border-border block"
             >
               <div className="aspect-square overflow-hidden bg-black">
                 <img src={p.img} alt={p.name} loading="lazy" width={800} height={800} className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
@@ -364,7 +391,7 @@ function Products() {
         <div className="mt-14 text-center">
           <Link
             to="/products"
-            className="group inline-flex items-center gap-3 bg-black text-gold border border-gold px-8 py-4 rounded-sm font-semibold hover:bg-gold hover:text-black transition-all"
+            className="group inline-flex items-center gap-3 bg-black text-gold border border-gold px-8 py-4 rounded-full font-semibold hover:bg-gold hover:text-black transition-all"
           >
             Explore More Products <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
           </Link>
@@ -456,7 +483,13 @@ function Certifications() {
 
 
 function Gallery() {
+  const INITIAL = 6;
   const [active, setActive] = useState<number | null>(null);
+  const [showAll, setShowAll] = useState(false);
+  const visible = showAll ? GALLERY : GALLERY.slice(0, INITIAL);
+  const go = (dir: number) =>
+    setActive((p) => (p === null ? p : (p + dir + GALLERY.length) % GALLERY.length));
+
   return (
     <section id="gallery" className="py-24 md:py-32 bg-background">
       <div className="mx-auto max-w-7xl px-6">
@@ -465,8 +498,8 @@ function Gallery() {
           <h2 className="font-display text-4xl md:text-5xl font-medium">Inside our <span className="italic red-text">world.</span></h2>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-          {GALLERY.map((g, i) => (
-            <button key={i} onClick={() => setActive(i)} className={`group relative overflow-hidden rounded-sm ${i === 0 ? "md:col-span-2 md:row-span-2 aspect-square md:aspect-auto" : "aspect-square"}`}>
+          {visible.map((g, i) => (
+            <button key={i} onClick={() => setActive(i)} className={`group relative overflow-hidden rounded-xl ${i === 0 && !showAll ? "md:col-span-2 md:row-span-2 aspect-square md:aspect-auto" : "aspect-square"}`}>
               <img src={g.src} alt={g.alt} loading="lazy" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
               <div className="absolute inset-0 bg-black/0 group-hover:bg-black/50 transition-colors grid place-items-center">
                 <Plus className="h-8 w-8 text-white opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -474,11 +507,35 @@ function Gallery() {
             </button>
           ))}
         </div>
+        {!showAll && GALLERY.length > INITIAL && (
+          <div className="mt-10 text-center">
+            <button
+              onClick={() => setShowAll(true)}
+              className="group inline-flex items-center gap-3 bg-black text-gold border border-gold px-8 py-4 rounded-full font-semibold hover:bg-gold hover:text-black transition-all"
+            >
+              More Photos <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+            </button>
+          </div>
+        )}
       </div>
       {active !== null && (
         <div onClick={() => setActive(null)} className="fixed inset-0 z-[60] bg-black/95 grid place-items-center p-6 animate-fade-up">
-          <button className="absolute top-6 right-6 text-white" onClick={() => setActive(null)}><X className="h-8 w-8" /></button>
-          <img src={GALLERY[active].src} alt={GALLERY[active].alt} className="max-h-[90vh] max-w-full rounded-sm" />
+          <button className="absolute top-6 right-6 text-white hover:text-gold transition-colors" onClick={(e) => { e.stopPropagation(); setActive(null); }}><X className="h-8 w-8" /></button>
+          <button
+            onClick={(e) => { e.stopPropagation(); go(-1); }}
+            aria-label="Previous image"
+            className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 text-white/80 hover:text-gold transition-colors"
+          >
+            <ArrowLeft className="h-9 w-9" strokeWidth={1.5} />
+          </button>
+          <button
+            onClick={(e) => { e.stopPropagation(); go(1); }}
+            aria-label="Next image"
+            className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 text-white/80 hover:text-gold transition-colors"
+          >
+            <ArrowRight className="h-9 w-9" strokeWidth={1.5} />
+          </button>
+          <img onClick={(e) => e.stopPropagation()} src={GALLERY[active].src} alt={GALLERY[active].alt} className="max-h-[90vh] max-w-full rounded-xl" />
         </div>
       )}
     </section>
@@ -487,28 +544,55 @@ function Gallery() {
 
 function Testimonials() {
   const [i, setI] = useState(0);
+  useEffect(() => {
+    const id = setInterval(() => setI((p) => (p + 1) % TESTIMONIALS.length), 5000);
+    return () => clearInterval(id);
+  }, []);
+  const go = (dir: number) => setI((p) => (p + dir + TESTIMONIALS.length) % TESTIMONIALS.length);
+  const t = TESTIMONIALS[i];
   return (
     <section className="py-24 md:py-32 bg-black text-white">
       <div className="mx-auto max-w-4xl px-6 text-center">
         <SectionLabel>Testimonials</SectionLabel>
         <h2 className="font-display text-4xl md:text-5xl font-medium">What our partners <span className="italic gold-text">say.</span></h2>
         <div className="mt-16 relative">
-          <Quote className="h-16 w-16 text-gold/30 mx-auto mb-6" />
-          <blockquote className="font-display text-2xl md:text-3xl leading-relaxed font-light italic">
-            "{TESTIMONIALS[i].quote}"
-          </blockquote>
-          <div className="mt-8 flex items-center justify-center gap-1 text-gold">
-            {Array.from({ length: 5 }).map((_, k) => <Star key={k} className="h-4 w-4 fill-current" />)}
-          </div>
-          <div className="mt-6">
-            <div className="font-medium">{TESTIMONIALS[i].name}</div>
-            <div className="text-sm text-white/60">{TESTIMONIALS[i].role} — {TESTIMONIALS[i].company}</div>
+          {/* Prev / Next (minimal) */}
+          <button
+            onClick={() => go(-1)}
+            aria-label="Previous testimonial"
+            className="absolute left-0 md:-left-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-gold transition-colors"
+          >
+            <ArrowLeft className="h-7 w-7" strokeWidth={1.5} />
+          </button>
+          <button
+            onClick={() => go(1)}
+            aria-label="Next testimonial"
+            className="absolute right-0 md:-right-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-gold transition-colors"
+          >
+            <ArrowRight className="h-7 w-7" strokeWidth={1.5} />
+          </button>
+
+          <div key={i} className="animate-fade-up">
+            <Quote className="h-16 w-16 text-gold/30 mx-auto mb-6" />
+            <blockquote className="font-display text-2xl md:text-3xl leading-relaxed font-light italic">
+              "{t.quote}"
+            </blockquote>
+            <div className="mt-8 flex items-center justify-center gap-1 text-gold">
+              {Array.from({ length: 5 }).map((_, k) => <Star key={k} className="h-4 w-4 fill-current" />)}
+            </div>
+            <div className="mt-6">
+              <div className="font-medium">{t.name}</div>
+              <div className="text-sm text-white/60">{t.role} — {t.company}</div>
+            </div>
           </div>
           <div className="mt-10 flex justify-center gap-2">
             {TESTIMONIALS.map((_, k) => (
-              <button key={k} onClick={() => setI(k)} className={`h-1.5 rounded-full transition-all ${k === i ? "bg-gold w-10" : "bg-white/20 w-4"}`} aria-label={`Testimonial ${k + 1}`} />
+              <button key={k} onClick={() => setI(k)} className={`h-1.5 rounded-full transition-all ${k === i ? "bg-gold w-10" : "bg-white/20 w-4 hover:bg-white/40"}`} aria-label={`Testimonial ${k + 1}`} />
             ))}
           </div>
+        </div>
+        <div className="mt-14 flex justify-center">
+          <HeroCtas />
         </div>
       </div>
     </section>
@@ -596,7 +680,7 @@ function Contact() {
             <label className="block text-xs uppercase tracking-widest text-muted-foreground mb-2">Message</label>
             <textarea name="message" rows={5} maxLength={1500} required className="w-full bg-white border border-border rounded-sm px-4 py-3 text-sm focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold transition-all resize-none" />
           </div>
-          <button type="submit" className="mt-6 inline-flex items-center gap-3 bg-black text-white px-8 py-4 rounded-sm font-medium hover:bg-gold hover:text-black transition-colors">
+          <button type="submit" className="mt-6 w-full inline-flex justify-center items-center gap-3 bg-black text-white px-8 py-4 rounded-full font-medium hover:bg-gold hover:text-black transition-colors">
             Send Inquiry <Send className="h-4 w-4" />
           </button>
           {sent && <div className="mt-4 text-sm text-gold font-medium">Thank you. Our export team will contact you within 24 hours.</div>}
@@ -608,8 +692,16 @@ function Contact() {
 
 function Footer() {
   return (
-    <footer className="bg-black text-white pt-20 pb-8">
-      <div className="mx-auto max-w-7xl px-6">
+    <footer className="relative bg-black text-white pt-20 pb-8 overflow-hidden">
+      <img
+        src={heroImg}
+        alt=""
+        aria-hidden
+        loading="lazy"
+        className="absolute inset-0 h-full w-full object-cover opacity-[0.08] pointer-events-none"
+      />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/85 to-black pointer-events-none" />
+      <div className="relative mx-auto max-w-7xl px-6">
         <div className="grid lg:grid-cols-12 gap-12 pb-16 border-b border-white/10">
           <div className="lg:col-span-4">
             <Logo />
@@ -642,8 +734,8 @@ function Footer() {
             <h4 className="font-display text-base mb-5 text-gold">Stay Connected</h4>
             <p className="text-sm text-white/60 mb-4">Subscribe for market updates, new harvest releases, and export insights.</p>
             <form onSubmit={(e) => e.preventDefault()} className="flex gap-2">
-              <input type="email" required placeholder="your@email.com" className="flex-1 bg-white/5 border border-white/20 rounded-sm px-4 py-3 text-sm text-white placeholder:text-white/40 focus:outline-none focus:border-gold" />
-              <button className="bg-gold text-black px-5 py-3 rounded-sm font-medium hover:bg-white transition-colors">Subscribe</button>
+              <input type="email" required placeholder="your@email.com" className="flex-1 bg-white/5 border border-white/20 rounded-full px-5 py-3 text-sm text-white placeholder:text-white/40 focus:outline-none focus:border-gold" />
+              <button className="bg-gold text-black px-5 py-3 rounded-full font-medium hover:bg-white transition-colors">Subscribe</button>
             </form>
             <div className="mt-6 flex gap-3">
               {[
@@ -652,7 +744,7 @@ function Footer() {
                 { Icon: Linkedin, href: "#" },
                 { Icon: Mail, href: "mailto:export@utsrice.com" },
               ].map(({ Icon, href }, i) => (
-                <a key={i} href={href} className="h-10 w-10 grid place-items-center border border-white/20 rounded-sm hover:bg-gold hover:text-black hover:border-gold transition-colors">
+                <a key={i} href={href} className="bounce-icon h-11 w-11 grid place-items-center border border-white/20 rounded-full text-white hover:bg-gold hover:text-black hover:border-gold">
                   <Icon className="h-4 w-4" />
                 </a>
               ))}
