@@ -80,6 +80,13 @@ const FAQS = [
   { q: "What payment methods do you accept?", a: "We accept Letters of Credit (L/C at sight), Telegraphic Transfer (T/T), and Documents against Payment (D/P) through Tier-1 banks." },
 ];
 
+import bagSuperBasmati from "@/assets/bag-super-basmati.jpg";
+import bag1121 from "@/assets/bag-1121.jpg";
+import bag1509 from "@/assets/bag-1509.jpg";
+import bagSella from "@/assets/bag-sella.jpg";
+import bagBrown from "@/assets/bag-brown.jpg";
+import bagSteam from "@/assets/bag-steam.jpg";
+
 const GALLERY = [
   { src: heroImg, alt: "Lush rice paddy fields at sunset" },
   { src: processingImg, alt: "Modern rice processing facility" },
@@ -87,6 +94,14 @@ const GALLERY = [
   { src: shippingImg, alt: "Export cargo containers at port" },
   { src: inspectionImg, alt: "Quality inspection laboratory" },
   { src: grainsImg, alt: "Premium Basmati rice grains" },
+  { src: bagSuperBasmati, alt: "Super Basmati export bag" },
+  { src: bag1121, alt: "1121 Basmati premium packaging" },
+  { src: bag1509, alt: "1509 Basmati retail bag" },
+  { src: bagSella, alt: "Sella parboiled rice bag" },
+  { src: bagBrown, alt: "Brown rice whole-grain bag" },
+  { src: bagSteam, alt: "Steam rice export bag" },
+  { src: pBasmati, alt: "Long-grain Basmati closeup" },
+  { src: pWhite, alt: "Polished white rice grains" },
 ];
 
 export function Site() {
