@@ -692,8 +692,16 @@ function Contact() {
 
 function Footer() {
   return (
-    <footer className="bg-black text-white pt-20 pb-8">
-      <div className="mx-auto max-w-7xl px-6">
+    <footer className="relative bg-black text-white pt-20 pb-8 overflow-hidden">
+      <img
+        src={heroImg}
+        alt=""
+        aria-hidden
+        loading="lazy"
+        className="absolute inset-0 h-full w-full object-cover opacity-[0.08] pointer-events-none"
+      />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/85 to-black pointer-events-none" />
+      <div className="relative mx-auto max-w-7xl px-6">
         <div className="grid lg:grid-cols-12 gap-12 pb-16 border-b border-white/10">
           <div className="lg:col-span-4">
             <Logo />
