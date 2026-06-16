@@ -65,6 +65,10 @@ const TESTIMONIALS = [
   { quote: "UTS Rice Co. has been our most consistent Basmati supplier for the past seven years. Every shipment arrives on schedule and exceeds spec.", name: "Khalid Al-Rashid", role: "Procurement Director", company: "Gulf Foods Trading, Dubai" },
   { quote: "The quality of their 1121 Basmati is exceptional. Our retail partners across Europe trust the brand we built around UTS Rice Co. rice.", name: "Sophie Laurent", role: "Managing Director", company: "Maison Riziere, Paris" },
   { quote: "Documentation, certifications, packaging — everything is handled with the professionalism of a Fortune 500 operation.", name: "James Okonkwo", role: "Head of Imports", company: "WestAfrica Foods Ltd, Lagos" },
+  { quote: "Their parboiled Sella is now the backbone of our private-label biryani range — flawless grain length and aroma in every batch.", name: "Aisha Mahmoud", role: "Category Manager", company: "BlueNile Retail, Cairo" },
+  { quote: "Five years, sixty containers, zero quality claims. That is the kind of partner every importer dreams of working with.", name: "Marcus Thornton", role: "Director of Sourcing", company: "Atlantic Grains LLC, Houston" },
+  { quote: "From sample dispatch to bill of lading, UTS Rice Co. communicates with rare clarity. Truly a benchmark exporter.", name: "Lin Wei",        role: "Import Lead",         company: "Pacific Foods Co., Singapore" },
+  { quote: "The aroma of their Super Basmati sells itself in our stores. Customers come back asking for the brand by name.", name: "Hiroshi Tanaka",  role: "Owner",               company: "Sakura Pantry, Tokyo" },
 ];
 
 const FAQS = [
