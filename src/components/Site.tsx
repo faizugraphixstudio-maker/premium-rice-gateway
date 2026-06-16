@@ -373,7 +373,7 @@ function Products() {
               key={p.slug}
               to="/products/$slug"
               params={{ slug: p.slug }}
-              className="group bg-white rounded-sm overflow-hidden hover-lift border border-border block"
+              className="group bg-white rounded-2xl overflow-hidden hover-lift border border-border block"
             >
               <div className="aspect-square overflow-hidden bg-black">
                 <img src={p.img} alt={p.name} loading="lazy" width={800} height={800} className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
