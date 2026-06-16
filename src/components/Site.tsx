@@ -734,8 +734,8 @@ function Footer() {
             <h4 className="font-display text-base mb-5 text-gold">Stay Connected</h4>
             <p className="text-sm text-white/60 mb-4">Subscribe for market updates, new harvest releases, and export insights.</p>
             <form onSubmit={(e) => e.preventDefault()} className="flex gap-2">
-              <input type="email" required placeholder="your@email.com" className="flex-1 bg-white/5 border border-white/20 rounded-sm px-4 py-3 text-sm text-white placeholder:text-white/40 focus:outline-none focus:border-gold" />
-              <button className="bg-gold text-black px-5 py-3 rounded-sm font-medium hover:bg-white transition-colors">Subscribe</button>
+              <input type="email" required placeholder="your@email.com" className="flex-1 bg-white/5 border border-white/20 rounded-full px-5 py-3 text-sm text-white placeholder:text-white/40 focus:outline-none focus:border-gold" />
+              <button className="bg-gold text-black px-5 py-3 rounded-full font-medium hover:bg-white transition-colors">Subscribe</button>
             </form>
             <div className="mt-6 flex gap-3">
               {[
@@ -744,7 +744,7 @@ function Footer() {
                 { Icon: Linkedin, href: "#" },
                 { Icon: Mail, href: "mailto:export@utsrice.com" },
               ].map(({ Icon, href }, i) => (
-                <a key={i} href={href} className="h-10 w-10 grid place-items-center border border-white/20 rounded-sm hover:bg-gold hover:text-black hover:border-gold transition-colors">
+                <a key={i} href={href} className="bounce-icon h-11 w-11 grid place-items-center border border-white/20 rounded-full text-white hover:bg-gold hover:text-black hover:border-gold">
                   <Icon className="h-4 w-4" />
                 </a>
               ))}
