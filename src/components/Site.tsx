@@ -758,7 +758,7 @@ function Faq() {
         </div>
         <div className="space-y-3">
           {FAQS.map((f, i) => (
-            <div key={i} className="bg-white rounded-sm border border-border overflow-hidden">
+            <div key={i} className="card-flip-light bg-white rounded-2xl border border-border overflow-hidden">
               <button onClick={() => setOpen(open === i ? null : i)} className="w-full flex items-center justify-between gap-4 p-6 text-left">
                 <span className="font-display text-lg font-medium">{f.q}</span>
                 {open === i ? <Minus className="h-5 w-5 text-gold shrink-0" /> : <Plus className="h-5 w-5 text-gold shrink-0" />}
