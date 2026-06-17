@@ -590,12 +590,13 @@ function Quality() {
         </div>
         <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-px bg-white/10">
           {steps.map((s, i) => (
-            <div key={s.title} className="bg-black p-8 hover:bg-white/5 transition-colors">
+            <div key={s.title} className="card-flip-dark bg-black p-8">
               <div className="text-gold text-xs font-medium mb-3">0{i + 1}</div>
               <s.icon className="h-8 w-8 text-gold mb-4" />
               <h3 className="font-display text-lg font-medium">{s.title}</h3>
               <p className="mt-2 text-sm text-white/60">{s.desc}</p>
             </div>
+
           ))}
         </div>
       </div>
