@@ -488,12 +488,12 @@ function About() {
               "Reliable end-to-end supply chain",
             ].map((item) => (
               <div key={item} className="flex items-start gap-3">
-                <BadgeCheck className="h-5 w-5 text-gold shrink-0 mt-0.5" />
+                <BadgeCheck className="h-5 w-5 text-[var(--brand-red)] shrink-0 mt-0.5" />
                 <span className="text-sm">{item}</span>
               </div>
             ))}
           </div>
-          <a href="#products" className="mt-10 inline-flex items-center gap-2 text-sm font-medium border-b-2 border-gold pb-1 hover:gap-3 transition-all">
+          <a href="#products" className="mt-10 inline-flex items-center gap-2 text-sm font-medium border-b-2 border-[var(--brand-red)] pb-1 hover:gap-3 transition-all">
             Discover our products <ArrowRight className="h-4 w-4" />
           </a>
         </div>
@@ -763,7 +763,7 @@ function Faq() {
             <div key={i} className="card-flip-light bg-white rounded-2xl border border-border overflow-hidden">
               <button onClick={() => setOpen(open === i ? null : i)} className="w-full flex items-center justify-between gap-4 p-6 text-left">
                 <span className="font-display text-lg font-medium">{f.q}</span>
-                {open === i ? <Minus className="h-5 w-5 text-gold shrink-0" /> : <Plus className="h-5 w-5 text-gold shrink-0" />}
+                {open === i ? <Minus className="h-5 w-5 text-[var(--brand-red)] shrink-0" /> : <Plus className="h-5 w-5 text-[var(--brand-red)] shrink-0" />}
               </button>
               {open === i && (
                 <div className="px-6 pb-6 text-muted-foreground leading-relaxed animate-fade-up">{f.a}</div>
@@ -793,7 +793,7 @@ function Contact() {
               { icon: Clock, label: "Business Hours", value: "Mon – Sat, 9:00 AM – 6:00 PM PKT" },
             ].map((c) => (
               <div key={c.label} className="flex items-start gap-4">
-                <div className="h-10 w-10 grid place-items-center rounded-sm bg-secondary text-gold shrink-0">
+                <div className="h-10 w-10 grid place-items-center rounded-xl bg-secondary text-[var(--brand-red)] shrink-0">
                   <c.icon className="h-5 w-5" />
                 </div>
                 <div>
@@ -803,7 +803,7 @@ function Contact() {
               </div>
             ))}
           </div>
-          <div className="mt-8 p-4 bg-gold/10 border-l-4 border-gold rounded-sm">
+          <div className="mt-8 p-4 bg-[var(--brand-red)]/10 border-l-4 border-[var(--brand-red)] rounded-xl">
             <div className="text-sm font-medium">We respond to all inquiries within 24 hours.</div>
           </div>
         </div>
@@ -822,18 +822,18 @@ function Contact() {
             ].map((f) => (
               <div key={f.name}>
                 <label className="block text-xs uppercase tracking-widest text-muted-foreground mb-2">{f.label}</label>
-                <input name={f.name} type={f.type} required={f.required} maxLength={150} className="w-full bg-white border border-border rounded-sm px-4 py-3 text-sm focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold transition-all" />
+                <input name={f.name} type={f.type} required={f.required} maxLength={150} className="w-full bg-white border border-border rounded-sm px-4 py-3 text-sm focus:outline-none focus:border-[var(--brand-red)] focus:ring-1 focus:ring-[var(--brand-red)] transition-all" />
               </div>
             ))}
           </div>
           <div className="mt-5">
             <label className="block text-xs uppercase tracking-widest text-muted-foreground mb-2">Message</label>
-            <textarea name="message" rows={5} maxLength={1500} required className="w-full bg-white border border-border rounded-sm px-4 py-3 text-sm focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold transition-all resize-none" />
+            <textarea name="message" rows={5} maxLength={1500} required className="w-full bg-white border border-border rounded-sm px-4 py-3 text-sm focus:outline-none focus:border-[var(--brand-red)] focus:ring-1 focus:ring-[var(--brand-red)] transition-all resize-none" />
           </div>
-          <button type="submit" className="mt-6 w-full inline-flex justify-center items-center gap-3 bg-black text-white px-8 py-4 rounded-full font-medium hover:bg-gold hover:text-black transition-colors">
+          <button type="submit" className="mt-6 w-full inline-flex justify-center items-center gap-3 bg-[var(--brand-red)] text-white px-8 py-4 rounded-full font-medium hover:bg-[var(--brand-red-dark)] transition-colors">
             Send Inquiry <Send className="h-4 w-4" />
           </button>
-          {sent && <div className="mt-4 text-sm text-gold font-medium">Thank you. Our export team will contact you within 24 hours.</div>}
+          {sent && <div className="mt-4 text-sm text-[var(--brand-red)] font-medium">Thank you. Our export team will contact you within 24 hours.</div>}
         </form>
       </div>
     </section>
