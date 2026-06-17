@@ -163,23 +163,31 @@ function Header() {
     <header className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ${scrolled ? "bg-black/90 backdrop-blur-md shadow-sm py-3" : "bg-transparent py-5"}`}>
       <div className="mx-auto max-w-7xl px-6 grid grid-cols-[auto_1fr_auto] items-center gap-6">
         <Logo />
-        <nav className="hidden lg:flex items-center justify-center gap-9">
-          {NAV_MAIN.map((item) => (
-            <a key={item.label} href={item.href} className="nav-link text-base font-semibold tracking-wide text-white">{item.label}</a>
-          ))}
-          <div className="relative" onMouseEnter={() => setMoreOpen(true)} onMouseLeave={() => setMoreOpen(false)}>
-            <button className="nav-link flex items-center gap-1 text-base font-semibold text-white">
-              More <ChevronDown className="h-4 w-4" />
-            </button>
-            {moreOpen && (
-              <div className="absolute left-1/2 -translate-x-1/2 top-full pt-3 w-56">
-                <div className="rounded-xl bg-white shadow-xl border border-border overflow-hidden animate-fade-up">
-                  {NAV_MORE.map((item) => (
-                    <a key={item.label} href={item.href} className="block px-5 py-3 text-sm text-foreground hover:bg-secondary hover:red-text transition-colors">{item.label}</a>
-                  ))}
+        <nav className="hidden lg:flex items-center justify-center">
+          <div className="flex items-center gap-1 rounded-full border border-white/20 bg-white/10 backdrop-blur-xl px-2 py-1.5 shadow-[0_8px_32px_rgba(0,0,0,0.25)] ring-1 ring-white/10">
+            {NAV_MAIN.map((item) => (
+              <a
+                key={item.label}
+                href={item.href}
+                className="px-5 py-2 text-base font-semibold tracking-wide text-white rounded-full transition-all duration-300 hover:bg-gold hover:text-black hover:shadow-[0_4px_20px_rgba(212,175,55,0.45)]"
+              >
+                {item.label}
+              </a>
+            ))}
+            <div className="relative" onMouseEnter={() => setMoreOpen(true)} onMouseLeave={() => setMoreOpen(false)}>
+              <button className="flex items-center gap-1 px-5 py-2 text-base font-semibold text-white rounded-full transition-all duration-300 hover:bg-gold hover:text-black hover:shadow-[0_4px_20px_rgba(212,175,55,0.45)]">
+                More <ChevronDown className="h-4 w-4" />
+              </button>
+              {moreOpen && (
+                <div className="absolute left-1/2 -translate-x-1/2 top-full pt-3 w-56">
+                  <div className="rounded-2xl bg-white shadow-xl border border-border overflow-hidden animate-fade-up">
+                    {NAV_MORE.map((item) => (
+                      <a key={item.label} href={item.href} className="block px-5 py-3 text-sm text-foreground hover:bg-secondary hover:red-text transition-colors">{item.label}</a>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
+            </div>
           </div>
         </nav>
         <div className="flex items-center gap-3 justify-end">
