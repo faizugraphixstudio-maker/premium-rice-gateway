@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import {
   Menu, X, ChevronDown, ArrowRight, ArrowLeft, Award, Globe, Truck, BadgeCheck,
   ShieldCheck, Package, Headphones, Wheat, Leaf, Factory, FlaskConical,
   Boxes, MapPin, Phone, Mail, Clock, Instagram, Facebook, Linkedin,
-  ArrowUp, MessageCircle, Star, Quote, Plus, Minus, Send,
+  ArrowUp, MessageCircle, Star, Quote, Plus, Minus, Send, UserCircle2,
 } from "lucide-react";
 import heroImg from "@/assets/hero-rice-fields.jpg";
 import grainsImg from "@/assets/basmati-grains.jpg";
@@ -16,7 +16,43 @@ import pBasmati from "@/assets/product-basmati.jpg";
 import pWhite from "@/assets/product-white.jpg";
 import pBrown from "@/assets/product-brown.jpg";
 import pSella from "@/assets/product-sella.jpg";
+import ceoImg from "@/assets/ceo-portrait.jpg";
 import logoAsset from "@/assets/logo.png.asset.json";
+
+/* ---------- shared hooks ---------- */
+function useReveal<T extends HTMLElement = HTMLDivElement>() {
+  const ref = useRef<T | null>(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      (entries) => entries.forEach((e) => e.isIntersecting && e.target.classList.add("in-view")),
+      { threshold: 0.15 },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+  return ref;
+}
+
+function useCountUp(target: number, suffix = "", duration = 1600, start = false) {
+  const [val, setVal] = useState(0);
+  useEffect(() => {
+    if (!start) return;
+    let raf = 0;
+    const t0 = performance.now();
+    const tick = (t: number) => {
+      const p = Math.min(1, (t - t0) / duration);
+      const eased = 1 - Math.pow(1 - p, 3);
+      setVal(Math.round(target * eased));
+      if (p < 1) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [start, target, duration]);
+  return `${val.toLocaleString()}${suffix}`;
+}
+
 
 const NAV_MAIN = [
   { label: "Home", href: "#home" },
@@ -26,6 +62,7 @@ const NAV_MAIN = [
 ];
 
 const NAV_MORE = [
+  { label: "Message from the CEO", href: "#ceo" },
   { label: "Certifications", href: "#certifications" },
   { label: "Quality Assurance", href: "#quality" },
   { label: "Export Markets", href: "#export" },
@@ -34,6 +71,14 @@ const NAV_MORE = [
   { label: "FAQ", href: "#faq" },
   { label: "News & Updates", href: "#news" },
 ];
+
+const STATS: { value: number; suffix: string; label: string }[] = [
+  { value: 60, suffix: "+", label: "Export Countries" },
+  { value: 400, suffix: "+", label: "International Clients" },
+  { value: 25, suffix: "+", label: "Years of Experience" },
+  { value: 120, suffix: "K MT", label: "Annual Capacity" },
+];
+
 
 import { PRODUCTS } from "@/data/products";
 
@@ -49,12 +94,6 @@ const FEATURES = [
   { icon: Headphones, title: "Dedicated Support", desc: "Personal account managers for every export partner." },
 ];
 
-const STATS = [
-  { value: "60+", label: "Export Countries" },
-  { value: "400+", label: "International Clients" },
-  { value: "25+", label: "Years of Experience" },
-  { value: "120K MT", label: "Annual Capacity" },
-];
 
 const CERTS = ["ISO 22000", "HACCP", "BRC Global", "SGS Verified", "Halal Certified", "FSSAI"];
 
@@ -111,6 +150,7 @@ export function Site() {
       <Hero />
       <Stats />
       <About />
+      <CeoMessage />
       <WhyUs />
       <Quality />
       <Certifications />
@@ -124,6 +164,7 @@ export function Site() {
     </div>
   );
 }
+
 
 function HeroCtas() {
   return (
@@ -152,6 +193,10 @@ function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [moreOpen, setMoreOpen] = useState(false);
+  const [hover, setHover] = useState<{ left: number; width: number; visible: boolean }>({ left: 0, width: 0, visible: false });
+  const navRef = useRef<HTMLDivElement | null>(null);
+  const [pressed, setPressed] = useState<string | null>(null);
+
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
     onScroll();
@@ -159,35 +204,73 @@ function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  const moveBlob = (e: React.MouseEvent<HTMLElement>) => {
+    const target = e.currentTarget as HTMLElement;
+    const parent = navRef.current;
+    if (!parent) return;
+    const pr = parent.getBoundingClientRect();
+    const tr = target.getBoundingClientRect();
+    setHover({ left: tr.left - pr.left, width: tr.width, visible: true });
+  };
+  const onPress = (label: string) => { setPressed(label); setTimeout(() => setPressed(null), 450); };
+
+  const items = [...NAV_MAIN, { label: "More", href: "#more", isMore: true as const }];
+
   return (
-    <header className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ${scrolled ? "bg-black/90 backdrop-blur-md shadow-sm py-3" : "bg-transparent py-5"}`}>
+    <header className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ${scrolled ? "bg-black/40 backdrop-blur-xl shadow-[0_4px_30px_rgba(0,0,0,0.2)] py-3" : "bg-transparent py-5"}`}>
       <div className="mx-auto max-w-7xl px-6 grid grid-cols-[auto_1fr_auto] items-center gap-6">
         <Logo />
         <nav className="hidden lg:flex items-center justify-center">
-          <div className="flex items-center gap-1 rounded-full border border-white/20 bg-white/10 backdrop-blur-xl px-2 py-1.5 shadow-[0_8px_32px_rgba(0,0,0,0.25)] ring-1 ring-white/10">
-            {NAV_MAIN.map((item) => (
-              <a
-                key={item.label}
-                href={item.href}
-                className="px-5 py-2 text-base font-semibold tracking-wide text-white rounded-full transition-all duration-300 hover:bg-gold hover:text-black hover:shadow-[0_4px_20px_rgba(212,175,55,0.45)]"
-              >
-                {item.label}
-              </a>
-            ))}
-            <div className="relative" onMouseEnter={() => setMoreOpen(true)} onMouseLeave={() => setMoreOpen(false)}>
-              <button className="flex items-center gap-1 px-5 py-2 text-base font-semibold text-white rounded-full transition-all duration-300 hover:bg-gold hover:text-black hover:shadow-[0_4px_20px_rgba(212,175,55,0.45)]">
-                More <ChevronDown className="h-4 w-4" />
-              </button>
-              {moreOpen && (
-                <div className="absolute left-1/2 -translate-x-1/2 top-full pt-3 w-56">
-                  <div className="rounded-2xl bg-white shadow-xl border border-border overflow-hidden animate-fade-up">
-                    {NAV_MORE.map((item) => (
-                      <a key={item.label} href={item.href} className="block px-5 py-3 text-sm text-foreground hover:bg-secondary hover:red-text transition-colors">{item.label}</a>
-                    ))}
-                  </div>
+          <div
+            ref={navRef}
+            onMouseLeave={() => { setHover((h) => ({ ...h, visible: false })); setMoreOpen(false); }}
+            className="relative glass-bar flex items-center gap-0.5 rounded-full px-1.5 py-1"
+          >
+            {/* Sliding blob */}
+            <span
+              aria-hidden
+              style={{
+                transform: `translateX(${hover.left}px)`,
+                width: hover.width,
+                opacity: hover.visible ? 1 : 0,
+              }}
+              className="pointer-events-none absolute top-1 bottom-1 left-0 rounded-full bg-white/15 backdrop-blur-md border border-white/30 shadow-[inset_0_1px_0_rgba(255,255,255,0.4),0_8px_24px_rgba(0,0,0,0.25)] transition-[transform,width,opacity] duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)]"
+            />
+            {items.map((item) => {
+              const isMore = "isMore" in item;
+              return (
+                <div
+                  key={item.label}
+                  className="relative"
+                  onMouseEnter={(e) => { moveBlob(e); if (isMore) setMoreOpen(true); else setMoreOpen(false); }}
+                >
+                  <a
+                    href={isMore ? undefined : item.href}
+                    onClick={(e) => { if (isMore) e.preventDefault(); onPress(item.label); }}
+                    className={`relative z-10 flex items-center gap-1 px-4 py-1.5 text-[13.5px] font-medium tracking-wide text-white/95 rounded-full cursor-pointer select-none ${pressed === item.label ? "nav-press" : ""}`}
+                  >
+                    {item.label}
+                    {isMore && <ChevronDown className={`h-3.5 w-3.5 transition-transform ${moreOpen ? "rotate-180" : ""}`} />}
+                  </a>
+                  {isMore && moreOpen && (
+                    <div className="absolute left-1/2 -translate-x-1/2 top-full pt-3 w-64 z-20">
+                      <div className="glass-panel rounded-2xl overflow-hidden animate-fade-up text-white/90">
+                        {NAV_MORE.map((m) => (
+                          <a
+                            key={m.label}
+                            href={m.href}
+                            onClick={() => { onPress(m.label); setMoreOpen(false); }}
+                            className="block px-5 py-3 text-sm transition-all duration-300 hover:bg-white/10 hover:text-gold hover:pl-7"
+                          >
+                            {m.label}
+                          </a>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
-              )}
-            </div>
+              );
+            })}
           </div>
         </nav>
         <div className="flex items-center gap-3 justify-end">
@@ -200,10 +283,10 @@ function Header() {
         </div>
       </div>
       {open && (
-        <div className="lg:hidden bg-white border-t border-border shadow-lg">
-          <nav className="px-6 py-4 flex flex-col gap-1">
+        <div className="lg:hidden glass-panel border-t border-white/10 mt-2 mx-4 rounded-2xl overflow-hidden text-white/90">
+          <nav className="px-4 py-3 flex flex-col gap-1">
             {[...NAV_MAIN, ...NAV_MORE].map((item) => (
-              <a key={item.label} href={item.href} onClick={() => setOpen(false)} className="px-2 py-3 text-base font-medium border-b border-border last:border-0">{item.label}</a>
+              <a key={item.label} href={item.href} onClick={() => setOpen(false)} className="px-3 py-3 text-sm font-medium rounded-xl hover:bg-white/10">{item.label}</a>
             ))}
           </nav>
         </div>
@@ -211,6 +294,45 @@ function Header() {
     </header>
   );
 }
+
+function CeoMessage() {
+  const ref = useReveal<HTMLDivElement>();
+  return (
+    <section id="ceo" className="py-24 md:py-32 bg-secondary/40">
+      <div ref={ref} className="reveal mx-auto max-w-7xl px-6 grid lg:grid-cols-2 gap-14 items-center">
+        <div className="relative">
+          <div className="relative rounded-2xl overflow-hidden shadow-2xl">
+            <img src={ceoImg} alt="Mr. Tariq Mahmood, Chief Executive Officer" loading="lazy" width={1024} height={1024} className="w-full h-auto object-cover" />
+            <div className="absolute left-0 right-0 bottom-0 bg-gradient-to-r from-[oklch(0.78_0.15_82)] via-[oklch(0.85_0.16_85)] to-[oklch(0.7_0.15_75)] text-black px-6 py-4 flex items-center gap-3">
+              <Award className="h-5 w-5" />
+              <div>
+                <div className="text-[10px] uppercase tracking-[0.25em] font-semibold opacity-80">Leadership</div>
+                <div className="text-sm font-bold">30+ Years of Rice Export Experience</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <SectionLabel>Message from the CEO</SectionLabel>
+          <h2 className="font-display text-4xl md:text-5xl font-medium leading-tight">
+            A word from our <span className="italic red-text">Chief Executive.</span>
+          </h2>
+          <blockquote className="mt-6 text-lg text-muted-foreground leading-relaxed border-l-4 border-[var(--brand-red)] pl-5 italic">
+            "When we started UTS Rice Co., we made a simple promise: every grain we ship will be one we would proudly serve at our own table. Three decades and sixty countries later, that promise still defines who we are. We don't sell rice — we deliver trust, harvest after harvest."
+          </blockquote>
+          <p className="mt-6 text-muted-foreground leading-relaxed">
+            Our commitment to quality, transparency, and long-term partnership has built relationships that span generations. As we expand into new markets, our values remain rooted in the soil of Punjab — discipline, integrity, and an unwavering respect for the craft.
+          </p>
+          <div className="mt-8">
+            <div className="font-display text-xl font-semibold">Mr. Tariq Mahmood</div>
+            <div className="text-sm text-muted-foreground">Founder & Chief Executive Officer, UTS Rice Co.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 
 
 function Hero() {
@@ -294,30 +416,47 @@ function Hero() {
 }
 
 
-function Stats() {
+function StatItem({ s, start }: { s: { value: number; suffix: string; label: string }; start: boolean }) {
+  const display = useCountUp(s.value, s.suffix, 1600, start);
   return (
-    <section className="bg-black text-white py-16 md:py-20">
-      <div className="mx-auto max-w-7xl px-6 grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
-        {STATS.map((s) => (
-          <div key={s.label} className="text-center md:text-left border-l border-gold/40 pl-6">
-            <div className="font-display text-4xl md:text-5xl font-bold text-gold">{s.value}</div>
-            <div className="mt-2 text-sm uppercase tracking-widest text-white/85">{s.label}</div>
-          </div>
-        ))}
+    <div className="text-center md:text-left border-l border-gold/40 pl-6">
+      <div className="font-display text-4xl md:text-5xl font-bold text-gold tabular-nums">{display}</div>
+      <div className="mt-2 text-sm uppercase tracking-widest text-white/85">{s.label}</div>
+    </div>
+  );
+}
+
+function Stats() {
+  const ref = useRef<HTMLDivElement | null>(null);
+  const [start, setStart] = useState(false);
+  useEffect(() => {
+    const el = ref.current; if (!el) return;
+    const io = new IntersectionObserver((es) => es.forEach((e) => e.isIntersecting && setStart(true)), { threshold: 0.3 });
+    io.observe(el); return () => io.disconnect();
+  }, []);
+  return (
+    <section ref={ref} className="relative bg-black text-white py-16 md:py-20 overflow-hidden">
+      <img src={heroImg} alt="" aria-hidden loading="lazy" className="absolute inset-0 h-full w-full object-cover opacity-25" style={{ filter: "brightness(0.4) hue-rotate(60deg) saturate(1.4)" }} />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-[oklch(0.15_0.08_150)]/70 to-black/90" />
+      <div className="relative mx-auto max-w-7xl px-6 grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
+        {STATS.map((s) => <StatItem key={s.label} s={s} start={start} />)}
       </div>
     </section>
   );
 }
 
 
-function SectionLabel({ children }: { children: React.ReactNode }) {
+
+function SectionLabel({ children, dark = false }: { children: React.ReactNode; dark?: boolean }) {
+  const color = dark ? "text-gold" : "text-[var(--brand-red)]";
   return (
     <div className="inline-flex items-center gap-3 mb-4">
-      <span className="h-px w-10 bg-gold" />
-      <span className="text-xs uppercase tracking-[0.3em] text-gold font-medium">{children}</span>
+      <span className={`h-px w-10 ${dark ? "bg-gold" : "bg-[var(--brand-red)]"}`} />
+      <span className={`text-xs uppercase tracking-[0.3em] font-medium ${color}`}>{children}</span>
     </div>
   );
 }
+
 
 function About() {
   return (
@@ -326,7 +465,7 @@ function About() {
         <div className="relative">
           <img src={processingImg} alt="Modern rice processing facility" loading="lazy" width={1280} height={960} className="rounded-sm shadow-2xl w-full h-auto" />
           <img src={inspectionImg} alt="Quality inspection" loading="lazy" width={1280} height={960} className="hidden md:block absolute -bottom-12 -right-8 w-2/3 rounded-sm shadow-2xl border-8 border-background" />
-          <div className="absolute -top-6 -left-6 bg-gold text-black p-6 rounded-sm shadow-xl hidden md:block">
+          <div className="absolute -top-6 -left-6 bg-[var(--brand-red)] text-white p-6 rounded-2xl shadow-xl hidden md:block">
             <div className="font-display text-4xl font-medium">25+</div>
             <div className="text-xs uppercase tracking-widest">Years Trusted</div>
           </div>
@@ -349,12 +488,12 @@ function About() {
               "Reliable end-to-end supply chain",
             ].map((item) => (
               <div key={item} className="flex items-start gap-3">
-                <BadgeCheck className="h-5 w-5 text-gold shrink-0 mt-0.5" />
+                <BadgeCheck className="h-5 w-5 text-[var(--brand-red)] shrink-0 mt-0.5" />
                 <span className="text-sm">{item}</span>
               </div>
             ))}
           </div>
-          <a href="#products" className="mt-10 inline-flex items-center gap-2 text-sm font-medium border-b-2 border-gold pb-1 hover:gap-3 transition-all">
+          <a href="#products" className="mt-10 inline-flex items-center gap-2 text-sm font-medium border-b-2 border-[var(--brand-red)] pb-1 hover:gap-3 transition-all">
             Discover our products <ArrowRight className="h-4 w-4" />
           </a>
         </div>
@@ -381,7 +520,7 @@ function Products() {
               key={p.slug}
               to="/products/$slug"
               params={{ slug: p.slug }}
-              className="group bg-white rounded-2xl overflow-hidden hover-lift border border-border block"
+              className="card-flip-light group bg-white rounded-2xl overflow-hidden border border-border block"
             >
               <div className="aspect-square overflow-hidden bg-black">
                 <img src={p.img} alt={p.name} loading="lazy" width={800} height={800} className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
@@ -419,13 +558,14 @@ function WhyUs() {
         </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {FEATURES.map((f) => (
-            <div key={f.title} className="group p-8 border border-border rounded-sm bg-white hover:border-gold hover:shadow-xl transition-all duration-500">
-              <div className="h-12 w-12 grid place-items-center rounded-sm bg-secondary text-gold group-hover:bg-gold group-hover:text-black transition-colors mb-5">
+            <div key={f.title} className="card-flip-light group p-8 border border-border rounded-2xl bg-white">
+              <div className="relative z-10 h-12 w-12 grid place-items-center rounded-xl bg-secondary text-[var(--brand-red)] accent-on-hover mb-5 transition-colors">
                 <f.icon className="h-6 w-6" />
               </div>
-              <h3 className="font-display text-xl font-medium">{f.title}</h3>
-              <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{f.desc}</p>
+              <h3 className="relative z-10 font-display text-xl font-medium">{f.title}</h3>
+              <p className="relative z-10 mt-2 text-sm text-muted-foreground muted-on-hover leading-relaxed">{f.desc}</p>
             </div>
+
           ))}
         </div>
       </div>
@@ -446,18 +586,19 @@ function Quality() {
       <img src={inspectionImg} alt="" aria-hidden loading="lazy" className="absolute inset-0 h-full w-full object-cover opacity-10" />
       <div className="relative mx-auto max-w-7xl px-6">
         <div className="max-w-3xl mb-16">
-          <SectionLabel>Quality Assurance</SectionLabel>
+          <SectionLabel dark>Quality Assurance</SectionLabel>
           <h2 className="font-display text-4xl md:text-5xl font-medium">From paddy to port — <span className="italic gold-text">every grain inspected.</span></h2>
           <p className="mt-5 text-white/70 text-lg">A five-stage quality protocol ensures every container leaving our facility upholds the Auragrain promise.</p>
         </div>
         <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-px bg-white/10">
           {steps.map((s, i) => (
-            <div key={s.title} className="bg-black p-8 hover:bg-white/5 transition-colors">
+            <div key={s.title} className="card-flip-dark bg-black p-8">
               <div className="text-gold text-xs font-medium mb-3">0{i + 1}</div>
               <s.icon className="h-8 w-8 text-gold mb-4" />
               <h3 className="font-display text-lg font-medium">{s.title}</h3>
               <p className="mt-2 text-sm text-white/60">{s.desc}</p>
             </div>
+
           ))}
         </div>
       </div>
@@ -474,12 +615,13 @@ function Certifications() {
         <p className="mt-5 max-w-2xl mx-auto text-muted-foreground text-lg">Independently audited and certified by the world's most respected regulatory bodies.</p>
         <div className="mt-14 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
           {CERTS.map((c) => (
-            <div key={c} className="group p-8 border-2 border-border rounded-sm hover:border-gold hover:bg-secondary transition-all">
-              <div className="h-16 w-16 mx-auto mb-3 rounded-full border-2 border-gold grid place-items-center group-hover:bg-gold transition-colors">
-                <Award className="h-8 w-8 text-gold group-hover:text-black transition-colors" />
+            <div key={c} className="card-flip-light group p-8 border-2 border-border rounded-2xl bg-white">
+              <div className="relative z-10 h-16 w-16 mx-auto mb-3 rounded-full border-2 border-[var(--brand-red)] grid place-items-center accent-on-hover transition-colors">
+                <Award className="h-8 w-8 text-[var(--brand-red)] accent-on-hover transition-colors" />
               </div>
-              <div className="font-display font-medium text-sm">{c}</div>
+              <div className="relative z-10 font-display font-medium text-sm">{c}</div>
             </div>
+
           ))}
         </div>
       </div>
@@ -561,7 +703,7 @@ function Testimonials() {
   return (
     <section className="py-24 md:py-32 bg-black text-white">
       <div className="mx-auto max-w-4xl px-6 text-center">
-        <SectionLabel>Testimonials</SectionLabel>
+        <SectionLabel dark>Testimonials</SectionLabel>
         <h2 className="font-display text-4xl md:text-5xl font-medium">What our partners <span className="italic gold-text">say.</span></h2>
         <div className="mt-16 relative">
           {/* Prev / Next (minimal) */}
@@ -618,10 +760,10 @@ function Faq() {
         </div>
         <div className="space-y-3">
           {FAQS.map((f, i) => (
-            <div key={i} className="bg-white rounded-sm border border-border overflow-hidden">
+            <div key={i} className="card-flip-light bg-white rounded-2xl border border-border overflow-hidden">
               <button onClick={() => setOpen(open === i ? null : i)} className="w-full flex items-center justify-between gap-4 p-6 text-left">
                 <span className="font-display text-lg font-medium">{f.q}</span>
-                {open === i ? <Minus className="h-5 w-5 text-gold shrink-0" /> : <Plus className="h-5 w-5 text-gold shrink-0" />}
+                {open === i ? <Minus className="h-5 w-5 text-[var(--brand-red)] shrink-0" /> : <Plus className="h-5 w-5 text-[var(--brand-red)] shrink-0" />}
               </button>
               {open === i && (
                 <div className="px-6 pb-6 text-muted-foreground leading-relaxed animate-fade-up">{f.a}</div>
@@ -651,7 +793,7 @@ function Contact() {
               { icon: Clock, label: "Business Hours", value: "Mon – Sat, 9:00 AM – 6:00 PM PKT" },
             ].map((c) => (
               <div key={c.label} className="flex items-start gap-4">
-                <div className="h-10 w-10 grid place-items-center rounded-sm bg-secondary text-gold shrink-0">
+                <div className="h-10 w-10 grid place-items-center rounded-xl bg-secondary text-[var(--brand-red)] shrink-0">
                   <c.icon className="h-5 w-5" />
                 </div>
                 <div>
@@ -661,7 +803,7 @@ function Contact() {
               </div>
             ))}
           </div>
-          <div className="mt-8 p-4 bg-gold/10 border-l-4 border-gold rounded-sm">
+          <div className="mt-8 p-4 bg-[var(--brand-red)]/10 border-l-4 border-[var(--brand-red)] rounded-xl">
             <div className="text-sm font-medium">We respond to all inquiries within 24 hours.</div>
           </div>
         </div>
@@ -680,18 +822,18 @@ function Contact() {
             ].map((f) => (
               <div key={f.name}>
                 <label className="block text-xs uppercase tracking-widest text-muted-foreground mb-2">{f.label}</label>
-                <input name={f.name} type={f.type} required={f.required} maxLength={150} className="w-full bg-white border border-border rounded-sm px-4 py-3 text-sm focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold transition-all" />
+                <input name={f.name} type={f.type} required={f.required} maxLength={150} className="w-full bg-white border border-border rounded-sm px-4 py-3 text-sm focus:outline-none focus:border-[var(--brand-red)] focus:ring-1 focus:ring-[var(--brand-red)] transition-all" />
               </div>
             ))}
           </div>
           <div className="mt-5">
             <label className="block text-xs uppercase tracking-widest text-muted-foreground mb-2">Message</label>
-            <textarea name="message" rows={5} maxLength={1500} required className="w-full bg-white border border-border rounded-sm px-4 py-3 text-sm focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold transition-all resize-none" />
+            <textarea name="message" rows={5} maxLength={1500} required className="w-full bg-white border border-border rounded-sm px-4 py-3 text-sm focus:outline-none focus:border-[var(--brand-red)] focus:ring-1 focus:ring-[var(--brand-red)] transition-all resize-none" />
           </div>
-          <button type="submit" className="mt-6 w-full inline-flex justify-center items-center gap-3 bg-black text-white px-8 py-4 rounded-full font-medium hover:bg-gold hover:text-black transition-colors">
+          <button type="submit" className="mt-6 w-full inline-flex justify-center items-center gap-3 bg-[var(--brand-red)] text-white px-8 py-4 rounded-full font-medium hover:bg-[var(--brand-red-dark)] transition-colors">
             Send Inquiry <Send className="h-4 w-4" />
           </button>
-          {sent && <div className="mt-4 text-sm text-gold font-medium">Thank you. Our export team will contact you within 24 hours.</div>}
+          {sent && <div className="mt-4 text-sm text-[var(--brand-red)] font-medium">Thank you. Our export team will contact you within 24 hours.</div>}
         </form>
       </div>
     </section>

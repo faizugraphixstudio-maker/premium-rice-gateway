@@ -158,4 +158,75 @@
   0% { background-position: -200% 0; }
   100% { background-position: 200% 0; }
 }
+@keyframes reveal-bounce {
+  0% { opacity: 0; transform: translateY(40px) scale(0.96); }
+  60% { opacity: 1; transform: translateY(-8px) scale(1.02); }
+  80% { transform: translateY(2px) scale(0.995); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes nav-press {
+  0% { transform: scale(1); }
+  45% { transform: scale(0.92); }
+  100% { transform: scale(1); }
+}
 .animate-fade-up { animation: fade-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.reveal { opacity: 0; }
+.reveal.in-view { animation: reveal-bounce 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) both; }
+.nav-press { animation: nav-press 0.45s cubic-bezier(0.34, 1.56, 0.64, 1); }
+
+/* iOS-inspired glass bar */
+@utility glass-bar {
+  background: linear-gradient(120deg, rgba(255,255,255,0.16) 0%, rgba(255,255,255,0.04) 45%, rgba(255,255,255,0.10) 100%);
+  backdrop-filter: blur(28px) saturate(180%);
+  box-shadow:
+    0 10px 40px rgba(0,0,0,0.28),
+    inset 0 1px 0 rgba(255,255,255,0.45),
+    inset 0 -1px 0 rgba(255,255,255,0.08),
+    inset 1px 0 0 rgba(255,255,255,0.25);
+  border: 1px solid rgba(255,255,255,0.22);
+}
+@utility glass-panel {
+  background: linear-gradient(135deg, rgba(20,20,20,0.72) 0%, rgba(20,20,20,0.55) 100%);
+  backdrop-filter: blur(28px) saturate(180%);
+  border: 1px solid rgba(255,255,255,0.18);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.18);
+}
+
+/* Light card → flips to dark with red+gold mash glow on hover */
+@utility card-flip-light {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.55s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.5s, background-color 0.5s, color 0.5s, border-color 0.5s;
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: -50%;
+    height: 75%;
+    background: radial-gradient(60% 100% at 50% 100%, oklch(0.78 0.15 82 / 0.55) 0%, oklch(0.52 0.23 27 / 0.40) 45%, transparent 75%);
+    opacity: 0;
+    transition: opacity 0.5s, bottom 0.5s;
+    pointer-events: none;
+  }
+  &:hover {
+    background-color: oklch(0.12 0 0);
+    color: oklch(0.98 0 0);
+    border-color: oklch(0.78 0.15 82 / 0.5);
+    transform: translateY(-6px);
+    box-shadow: 0 24px 60px -20px oklch(0.52 0.23 27 / 0.45), 0 0 0 1px oklch(0.78 0.15 82 / 0.25);
+  }
+  &:hover::after { opacity: 1; bottom: -20%; }
+  &:hover .muted-on-hover { color: oklch(0.9 0 0 / 0.8); }
+  &:hover .accent-on-hover { color: var(--gold); }
+}
+
+/* Dark card → flips to golden theme on hover */
+@utility card-flip-dark {
+  transition: transform 0.55s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.5s, background 0.5s, color 0.5s;
+  &:hover {
+    background: var(--gradient-gold);
+    color: oklch(0.1 0 0);
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-gold);
+  }
+}
