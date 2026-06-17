@@ -416,20 +416,35 @@ function Hero() {
 }
 
 
-function Stats() {
+function StatItem({ s, start }: { s: { value: number; suffix: string; label: string }; start: boolean }) {
+  const display = useCountUp(s.value, s.suffix, 1600, start);
   return (
-    <section className="bg-black text-white py-16 md:py-20">
-      <div className="mx-auto max-w-7xl px-6 grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
-        {STATS.map((s) => (
-          <div key={s.label} className="text-center md:text-left border-l border-gold/40 pl-6">
-            <div className="font-display text-4xl md:text-5xl font-bold text-gold">{s.value}</div>
-            <div className="mt-2 text-sm uppercase tracking-widest text-white/85">{s.label}</div>
-          </div>
-        ))}
+    <div className="text-center md:text-left border-l border-gold/40 pl-6">
+      <div className="font-display text-4xl md:text-5xl font-bold text-gold tabular-nums">{display}</div>
+      <div className="mt-2 text-sm uppercase tracking-widest text-white/85">{s.label}</div>
+    </div>
+  );
+}
+
+function Stats() {
+  const ref = useRef<HTMLDivElement | null>(null);
+  const [start, setStart] = useState(false);
+  useEffect(() => {
+    const el = ref.current; if (!el) return;
+    const io = new IntersectionObserver((es) => es.forEach((e) => e.isIntersecting && setStart(true)), { threshold: 0.3 });
+    io.observe(el); return () => io.disconnect();
+  }, []);
+  return (
+    <section ref={ref} className="relative bg-black text-white py-16 md:py-20 overflow-hidden">
+      <img src={heroImg} alt="" aria-hidden loading="lazy" className="absolute inset-0 h-full w-full object-cover opacity-25" style={{ filter: "brightness(0.4) hue-rotate(60deg) saturate(1.4)" }} />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-[oklch(0.15_0.08_150)]/70 to-black/90" />
+      <div className="relative mx-auto max-w-7xl px-6 grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
+        {STATS.map((s) => <StatItem key={s.label} s={s} start={start} />)}
       </div>
     </section>
   );
 }
+
 
 
 function SectionLabel({ children }: { children: React.ReactNode }) {
