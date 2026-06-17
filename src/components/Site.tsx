@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import {
   Menu, X, ChevronDown, ArrowRight, ArrowLeft, Award, Globe, Truck, BadgeCheck,
   ShieldCheck, Package, Headphones, Wheat, Leaf, Factory, FlaskConical,
   Boxes, MapPin, Phone, Mail, Clock, Instagram, Facebook, Linkedin,
-  ArrowUp, MessageCircle, Star, Quote, Plus, Minus, Send,
+  ArrowUp, MessageCircle, Star, Quote, Plus, Minus, Send, UserCircle2,
 } from "lucide-react";
 import heroImg from "@/assets/hero-rice-fields.jpg";
 import grainsImg from "@/assets/basmati-grains.jpg";
@@ -16,7 +16,43 @@ import pBasmati from "@/assets/product-basmati.jpg";
 import pWhite from "@/assets/product-white.jpg";
 import pBrown from "@/assets/product-brown.jpg";
 import pSella from "@/assets/product-sella.jpg";
+import ceoImg from "@/assets/ceo-portrait.jpg";
 import logoAsset from "@/assets/logo.png.asset.json";
+
+/* ---------- shared hooks ---------- */
+function useReveal<T extends HTMLElement = HTMLDivElement>() {
+  const ref = useRef<T | null>(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      (entries) => entries.forEach((e) => e.isIntersecting && e.target.classList.add("in-view")),
+      { threshold: 0.15 },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+  return ref;
+}
+
+function useCountUp(target: number, suffix = "", duration = 1600, start = false) {
+  const [val, setVal] = useState(0);
+  useEffect(() => {
+    if (!start) return;
+    let raf = 0;
+    const t0 = performance.now();
+    const tick = (t: number) => {
+      const p = Math.min(1, (t - t0) / duration);
+      const eased = 1 - Math.pow(1 - p, 3);
+      setVal(Math.round(target * eased));
+      if (p < 1) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [start, target, duration]);
+  return `${val.toLocaleString()}${suffix}`;
+}
+
 
 const NAV_MAIN = [
   { label: "Home", href: "#home" },
