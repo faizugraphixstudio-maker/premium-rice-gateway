@@ -447,14 +447,16 @@ function Stats() {
 
 
 
-function SectionLabel({ children }: { children: React.ReactNode }) {
+function SectionLabel({ children, dark = false }: { children: React.ReactNode; dark?: boolean }) {
+  const color = dark ? "text-gold" : "text-[var(--brand-red)]";
   return (
     <div className="inline-flex items-center gap-3 mb-4">
-      <span className="h-px w-10 bg-gold" />
-      <span className="text-xs uppercase tracking-[0.3em] text-gold font-medium">{children}</span>
+      <span className={`h-px w-10 ${dark ? "bg-gold" : "bg-[var(--brand-red)]"}`} />
+      <span className={`text-xs uppercase tracking-[0.3em] font-medium ${color}`}>{children}</span>
     </div>
   );
 }
+
 
 function About() {
   return (
