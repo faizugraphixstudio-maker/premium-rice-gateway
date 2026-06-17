@@ -586,7 +586,7 @@ function Quality() {
       <img src={inspectionImg} alt="" aria-hidden loading="lazy" className="absolute inset-0 h-full w-full object-cover opacity-10" />
       <div className="relative mx-auto max-w-7xl px-6">
         <div className="max-w-3xl mb-16">
-          <SectionLabel>Quality Assurance</SectionLabel>
+          <SectionLabel dark>Quality Assurance</SectionLabel>
           <h2 className="font-display text-4xl md:text-5xl font-medium">From paddy to port — <span className="italic gold-text">every grain inspected.</span></h2>
           <p className="mt-5 text-white/70 text-lg">A five-stage quality protocol ensures every container leaving our facility upholds the Auragrain promise.</p>
         </div>
@@ -703,7 +703,7 @@ function Testimonials() {
   return (
     <section className="py-24 md:py-32 bg-black text-white">
       <div className="mx-auto max-w-4xl px-6 text-center">
-        <SectionLabel>Testimonials</SectionLabel>
+        <SectionLabel dark>Testimonials</SectionLabel>
         <h2 className="font-display text-4xl md:text-5xl font-medium">What our partners <span className="italic gold-text">say.</span></h2>
         <div className="mt-16 relative">
           {/* Prev / Next (minimal) */}
