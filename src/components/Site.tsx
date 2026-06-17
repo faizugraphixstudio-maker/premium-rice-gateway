@@ -465,7 +465,7 @@ function About() {
         <div className="relative">
           <img src={processingImg} alt="Modern rice processing facility" loading="lazy" width={1280} height={960} className="rounded-sm shadow-2xl w-full h-auto" />
           <img src={inspectionImg} alt="Quality inspection" loading="lazy" width={1280} height={960} className="hidden md:block absolute -bottom-12 -right-8 w-2/3 rounded-sm shadow-2xl border-8 border-background" />
-          <div className="absolute -top-6 -left-6 bg-gold text-black p-6 rounded-sm shadow-xl hidden md:block">
+          <div className="absolute -top-6 -left-6 bg-[var(--brand-red)] text-white p-6 rounded-2xl shadow-xl hidden md:block">
             <div className="font-display text-4xl font-medium">25+</div>
             <div className="text-xs uppercase tracking-widest">Years Trusted</div>
           </div>
