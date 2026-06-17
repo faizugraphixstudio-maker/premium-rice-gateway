@@ -193,6 +193,10 @@ function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [moreOpen, setMoreOpen] = useState(false);
+  const [hover, setHover] = useState<{ left: number; width: number; visible: boolean }>({ left: 0, width: 0, visible: false });
+  const navRef = useRef<HTMLDivElement | null>(null);
+  const [pressed, setPressed] = useState<string | null>(null);
+
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
     onScroll();
@@ -200,35 +204,73 @@ function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  const moveBlob = (e: React.MouseEvent<HTMLElement>) => {
+    const target = e.currentTarget as HTMLElement;
+    const parent = navRef.current;
+    if (!parent) return;
+    const pr = parent.getBoundingClientRect();
+    const tr = target.getBoundingClientRect();
+    setHover({ left: tr.left - pr.left, width: tr.width, visible: true });
+  };
+  const onPress = (label: string) => { setPressed(label); setTimeout(() => setPressed(null), 450); };
+
+  const items = [...NAV_MAIN, { label: "More", href: "#more", isMore: true as const }];
+
   return (
-    <header className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ${scrolled ? "bg-black/90 backdrop-blur-md shadow-sm py-3" : "bg-transparent py-5"}`}>
+    <header className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ${scrolled ? "bg-black/40 backdrop-blur-xl shadow-[0_4px_30px_rgba(0,0,0,0.2)] py-3" : "bg-transparent py-5"}`}>
       <div className="mx-auto max-w-7xl px-6 grid grid-cols-[auto_1fr_auto] items-center gap-6">
         <Logo />
         <nav className="hidden lg:flex items-center justify-center">
-          <div className="flex items-center gap-1 rounded-full border border-white/20 bg-white/10 backdrop-blur-xl px-2 py-1.5 shadow-[0_8px_32px_rgba(0,0,0,0.25)] ring-1 ring-white/10">
-            {NAV_MAIN.map((item) => (
-              <a
-                key={item.label}
-                href={item.href}
-                className="px-5 py-2 text-base font-semibold tracking-wide text-white rounded-full transition-all duration-300 hover:bg-gold hover:text-black hover:shadow-[0_4px_20px_rgba(212,175,55,0.45)]"
-              >
-                {item.label}
-              </a>
-            ))}
-            <div className="relative" onMouseEnter={() => setMoreOpen(true)} onMouseLeave={() => setMoreOpen(false)}>
-              <button className="flex items-center gap-1 px-5 py-2 text-base font-semibold text-white rounded-full transition-all duration-300 hover:bg-gold hover:text-black hover:shadow-[0_4px_20px_rgba(212,175,55,0.45)]">
-                More <ChevronDown className="h-4 w-4" />
-              </button>
-              {moreOpen && (
-                <div className="absolute left-1/2 -translate-x-1/2 top-full pt-3 w-56">
-                  <div className="rounded-2xl bg-white shadow-xl border border-border overflow-hidden animate-fade-up">
-                    {NAV_MORE.map((item) => (
-                      <a key={item.label} href={item.href} className="block px-5 py-3 text-sm text-foreground hover:bg-secondary hover:red-text transition-colors">{item.label}</a>
-                    ))}
-                  </div>
+          <div
+            ref={navRef}
+            onMouseLeave={() => { setHover((h) => ({ ...h, visible: false })); setMoreOpen(false); }}
+            className="relative glass-bar flex items-center gap-0.5 rounded-full px-1.5 py-1"
+          >
+            {/* Sliding blob */}
+            <span
+              aria-hidden
+              style={{
+                transform: `translateX(${hover.left}px)`,
+                width: hover.width,
+                opacity: hover.visible ? 1 : 0,
+              }}
+              className="pointer-events-none absolute top-1 bottom-1 left-0 rounded-full bg-white/15 backdrop-blur-md border border-white/30 shadow-[inset_0_1px_0_rgba(255,255,255,0.4),0_8px_24px_rgba(0,0,0,0.25)] transition-[transform,width,opacity] duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)]"
+            />
+            {items.map((item) => {
+              const isMore = "isMore" in item;
+              return (
+                <div
+                  key={item.label}
+                  className="relative"
+                  onMouseEnter={(e) => { moveBlob(e); if (isMore) setMoreOpen(true); else setMoreOpen(false); }}
+                >
+                  <a
+                    href={isMore ? undefined : item.href}
+                    onClick={(e) => { if (isMore) e.preventDefault(); onPress(item.label); }}
+                    className={`relative z-10 flex items-center gap-1 px-4 py-1.5 text-[13.5px] font-medium tracking-wide text-white/95 rounded-full cursor-pointer select-none ${pressed === item.label ? "nav-press" : ""}`}
+                  >
+                    {item.label}
+                    {isMore && <ChevronDown className={`h-3.5 w-3.5 transition-transform ${moreOpen ? "rotate-180" : ""}`} />}
+                  </a>
+                  {isMore && moreOpen && (
+                    <div className="absolute left-1/2 -translate-x-1/2 top-full pt-3 w-64 z-20">
+                      <div className="glass-panel rounded-2xl overflow-hidden animate-fade-up text-white/90">
+                        {NAV_MORE.map((m) => (
+                          <a
+                            key={m.label}
+                            href={m.href}
+                            onClick={() => { onPress(m.label); setMoreOpen(false); }}
+                            className="block px-5 py-3 text-sm transition-all duration-300 hover:bg-white/10 hover:text-gold hover:pl-7"
+                          >
+                            {m.label}
+                          </a>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
-              )}
-            </div>
+              );
+            })}
           </div>
         </nav>
         <div className="flex items-center gap-3 justify-end">
@@ -241,10 +283,10 @@ function Header() {
         </div>
       </div>
       {open && (
-        <div className="lg:hidden bg-white border-t border-border shadow-lg">
-          <nav className="px-6 py-4 flex flex-col gap-1">
+        <div className="lg:hidden glass-panel border-t border-white/10 mt-2 mx-4 rounded-2xl overflow-hidden text-white/90">
+          <nav className="px-4 py-3 flex flex-col gap-1">
             {[...NAV_MAIN, ...NAV_MORE].map((item) => (
-              <a key={item.label} href={item.href} onClick={() => setOpen(false)} className="px-2 py-3 text-base font-medium border-b border-border last:border-0">{item.label}</a>
+              <a key={item.label} href={item.href} onClick={() => setOpen(false)} className="px-3 py-3 text-sm font-medium rounded-xl hover:bg-white/10">{item.label}</a>
             ))}
           </nav>
         </div>
@@ -252,6 +294,45 @@ function Header() {
     </header>
   );
 }
+
+function CeoMessage() {
+  const ref = useReveal<HTMLDivElement>();
+  return (
+    <section id="ceo" className="py-24 md:py-32 bg-secondary/40">
+      <div ref={ref} className="reveal mx-auto max-w-7xl px-6 grid lg:grid-cols-2 gap-14 items-center">
+        <div className="relative">
+          <div className="relative rounded-2xl overflow-hidden shadow-2xl">
+            <img src={ceoImg} alt="Mr. Tariq Mahmood, Chief Executive Officer" loading="lazy" width={1024} height={1024} className="w-full h-auto object-cover" />
+            <div className="absolute left-0 right-0 bottom-0 bg-gradient-to-r from-[oklch(0.78_0.15_82)] via-[oklch(0.85_0.16_85)] to-[oklch(0.7_0.15_75)] text-black px-6 py-4 flex items-center gap-3">
+              <Award className="h-5 w-5" />
+              <div>
+                <div className="text-[10px] uppercase tracking-[0.25em] font-semibold opacity-80">Leadership</div>
+                <div className="text-sm font-bold">30+ Years of Rice Export Experience</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <SectionLabel>Message from the CEO</SectionLabel>
+          <h2 className="font-display text-4xl md:text-5xl font-medium leading-tight">
+            A word from our <span className="italic red-text">Chief Executive.</span>
+          </h2>
+          <blockquote className="mt-6 text-lg text-muted-foreground leading-relaxed border-l-4 border-[var(--brand-red)] pl-5 italic">
+            "When we started UTS Rice Co., we made a simple promise: every grain we ship will be one we would proudly serve at our own table. Three decades and sixty countries later, that promise still defines who we are. We don't sell rice — we deliver trust, harvest after harvest."
+          </blockquote>
+          <p className="mt-6 text-muted-foreground leading-relaxed">
+            Our commitment to quality, transparency, and long-term partnership has built relationships that span generations. As we expand into new markets, our values remain rooted in the soil of Punjab — discipline, integrity, and an unwavering respect for the craft.
+          </p>
+          <div className="mt-8">
+            <div className="font-display text-xl font-semibold">Mr. Tariq Mahmood</div>
+            <div className="text-sm text-muted-foreground">Founder & Chief Executive Officer, UTS Rice Co.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 
 
 function Hero() {
