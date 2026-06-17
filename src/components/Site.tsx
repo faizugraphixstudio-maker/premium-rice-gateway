@@ -556,13 +556,14 @@ function WhyUs() {
         </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {FEATURES.map((f) => (
-            <div key={f.title} className="group p-8 border border-border rounded-sm bg-white hover:border-gold hover:shadow-xl transition-all duration-500">
-              <div className="h-12 w-12 grid place-items-center rounded-sm bg-secondary text-gold group-hover:bg-gold group-hover:text-black transition-colors mb-5">
+            <div key={f.title} className="card-flip-light group p-8 border border-border rounded-2xl bg-white">
+              <div className="relative z-10 h-12 w-12 grid place-items-center rounded-xl bg-secondary text-[var(--brand-red)] accent-on-hover mb-5 transition-colors">
                 <f.icon className="h-6 w-6" />
               </div>
-              <h3 className="font-display text-xl font-medium">{f.title}</h3>
-              <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{f.desc}</p>
+              <h3 className="relative z-10 font-display text-xl font-medium">{f.title}</h3>
+              <p className="relative z-10 mt-2 text-sm text-muted-foreground muted-on-hover leading-relaxed">{f.desc}</p>
             </div>
+
           ))}
         </div>
       </div>
