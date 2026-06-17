@@ -150,6 +150,7 @@ export function Site() {
       <Hero />
       <Stats />
       <About />
+      <CeoMessage />
       <WhyUs />
       <Quality />
       <Certifications />
@@ -163,6 +164,7 @@ export function Site() {
     </div>
   );
 }
+
 
 function HeroCtas() {
   return (
