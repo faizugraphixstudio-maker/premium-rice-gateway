@@ -62,6 +62,7 @@ const NAV_MAIN = [
 ];
 
 const NAV_MORE = [
+  { label: "Message from the CEO", href: "#ceo" },
   { label: "Certifications", href: "#certifications" },
   { label: "Quality Assurance", href: "#quality" },
   { label: "Export Markets", href: "#export" },
@@ -70,6 +71,14 @@ const NAV_MORE = [
   { label: "FAQ", href: "#faq" },
   { label: "News & Updates", href: "#news" },
 ];
+
+const STATS: { value: number; suffix: string; label: string }[] = [
+  { value: 60, suffix: "+", label: "Export Countries" },
+  { value: 400, suffix: "+", label: "International Clients" },
+  { value: 25, suffix: "+", label: "Years of Experience" },
+  { value: 120, suffix: "K MT", label: "Annual Capacity" },
+];
+
 
 import { PRODUCTS } from "@/data/products";
 
