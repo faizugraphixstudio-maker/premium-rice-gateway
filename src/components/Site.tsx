@@ -94,12 +94,6 @@ const FEATURES = [
   { icon: Headphones, title: "Dedicated Support", desc: "Personal account managers for every export partner." },
 ];
 
-const STATS = [
-  { value: "60+", label: "Export Countries" },
-  { value: "400+", label: "International Clients" },
-  { value: "25+", label: "Years of Experience" },
-  { value: "120K MT", label: "Annual Capacity" },
-];
 
 const CERTS = ["ISO 22000", "HACCP", "BRC Global", "SGS Verified", "Halal Certified", "FSSAI"];
 
