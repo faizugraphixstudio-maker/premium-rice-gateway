@@ -613,12 +613,13 @@ function Certifications() {
         <p className="mt-5 max-w-2xl mx-auto text-muted-foreground text-lg">Independently audited and certified by the world's most respected regulatory bodies.</p>
         <div className="mt-14 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
           {CERTS.map((c) => (
-            <div key={c} className="group p-8 border-2 border-border rounded-sm hover:border-gold hover:bg-secondary transition-all">
-              <div className="h-16 w-16 mx-auto mb-3 rounded-full border-2 border-gold grid place-items-center group-hover:bg-gold transition-colors">
-                <Award className="h-8 w-8 text-gold group-hover:text-black transition-colors" />
+            <div key={c} className="card-flip-light group p-8 border-2 border-border rounded-2xl bg-white">
+              <div className="relative z-10 h-16 w-16 mx-auto mb-3 rounded-full border-2 border-[var(--brand-red)] grid place-items-center accent-on-hover transition-colors">
+                <Award className="h-8 w-8 text-[var(--brand-red)] accent-on-hover transition-colors" />
               </div>
-              <div className="font-display font-medium text-sm">{c}</div>
+              <div className="relative z-10 font-display font-medium text-sm">{c}</div>
             </div>
+
           ))}
         </div>
       </div>
